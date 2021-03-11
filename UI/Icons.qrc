@@ -1,0 +1,48 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icons/App Icon/Rekord Buddy Icon 256.png</file>
+        <file>Icons/Crate List View/Add/Add.png</file>
+        <file>Icons/Crate List View/Add On/Add On.png</file>
+        <file>Icons/Crate List View/Artist Icon/ArtistIcon.png</file>
+        <file>Icons/Crate List View/Clone Folder Icon/CloneFolder.png</file>
+        <file>Icons/Crate List View/Clone Icon/CloneIcon.png</file>
+        <file>Icons/Crate List View/Clone Playlist Icon/ClonePlaylist.png</file>
+        <file>Icons/Crate List View/Filter Icon/39864.png</file>
+        <file>Icons/Crate List View/Filter Icon White/FilterIcon.png</file>
+        <file>Icons/Crate List View/Folder Icon/GenericFolder Invert.png</file>
+        <file>Icons/Crate List View/Musical Key/key.png</file>
+        <file>Icons/Crate List View/Playlist Icon/MusicPlaylist invert.png</file>
+        <file>Icons/Crate List View/Refresh/importexport.png</file>
+        <file>Icons/Crate List View/Refresh On/importexport on.png</file>
+        <file>Icons/Crate List View/settings off/settings off.png</file>
+        <file>Icons/Crate List View/Settings On/Settings On.png</file>
+        <file>Icons/Crate List View/Smart Playlist Icon/SmartPlaylist.png</file>
+        <file>Icons/Crate List View/Tag White/tag white.png</file>
+        <file>Icons/Main Window/Next Button/Next Button.png</file>
+        <file>Icons/Main Window/Play Button/Play Button.png</file>
+        <file>Icons/Main Window/Prev Button/Previous Button.png</file>
+        <file>Icons/Main Window/Stop Button/Stop Button.png</file>
+        <file>Icons/Preferences/Folder/Folder 256.png</file>
+        <file>Icons/Preferences/Folder/Folder 512.png</file>
+        <file>Icons/Preferences/MixedInKey Logo/mik256.png</file>
+        <file>Icons/Preferences/MixedInKey Logo/mik512.png</file>
+        <file>Icons/Preferences/Rekordbox Logo/rekordbox 256.png</file>
+        <file>Icons/Preferences/Rekordbox Logo/rekordbox 512.png</file>
+        <file>Icons/Preferences/Serato Logo/Serato 256.png</file>
+        <file>Icons/Preferences/Serato Logo/Serato 512.png</file>
+        <file>Icons/Preferences/Traktor Logo/Traktor256.png</file>
+        <file>Icons/Preferences/Traktor Logo/Traktor512.png</file>
+        <file>Icons/Splash Screen/Rekord Buddy Logo/icon with Trademark.png</file>
+        <file>Icons/Splash Screen/Rekord Buddy Name Logo/Rekord Buddy Name Logo.png</file>
+        <file>Icons/Splash Screen/TakeControlOfYourMusic/TakeControlOfYourMusic.png</file>
+        <file>Icons/Warnings and Errors/Alert Icon/icon_256x256.png</file>
+        <file>Icons/Warnings and Errors/Alert Icon/icon_512x512.png</file>
+        <file>Icons/Warnings and Errors/No Artwork/No Artwork.png</file>
+        <file>Icons/Warnings and Errors/Warning Sign/Warning Sign.png</file>
+        <file>Icons/Crate List View/Loading/loader.gif</file>
+        <file>Icons/Preferences/iTunes Logo/iTunes256.png</file>
+        <file>Icons/App Icon/Rekord Buddy Beta Icon 256.png</file>
+        <file>Icons/Warnings and Errors/Message Of The Day/motd.png</file>
+        <file>Icons/Preferences/PCDJ Logo/PCDJ256.png</file>
+    </qresource>
+</RCC>

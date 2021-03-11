@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/splash">
+        <file>rc/Splash/Warning Tape.png</file>
+        <file>rc/Splash/Acknowledgements.htm</file>
+        <file>rc/Splash/Rekord Buddy Name Logo.png</file>
+        <file>rc/Splash/TakeControlOfYourMusic.png</file>
+        <file>rc/Splash/icon.png</file>
+    </qresource>
+</RCC>

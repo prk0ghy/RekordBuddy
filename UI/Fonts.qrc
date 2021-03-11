@@ -1,0 +1,20 @@
+<RCC>
+  <qresource>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-Black.ttf</file>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-BlackItalic.ttf</file>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-Bold.ttf</file>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-BoldItalic.ttf</file>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-Italic.ttf</file>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-Medium.ttf</file>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-MediumItalic.ttf</file>
+    <file>Fonts/Inter-TTF-hinted/Inter-UI-Regular.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-Black.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-BlackItalic.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-Bold.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-BoldItalic.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-Italic.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-Medium.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-MediumItalic.ttf</file>
+    <file>Fonts/Inter-TTF/Inter-UI-Regular.ttf</file>
+  </qresource>
+</RCC>
