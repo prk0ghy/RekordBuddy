@@ -122,10 +122,12 @@ public:
     {
         auto filePath = this->absoluteFilePath();
         auto maybeRelativePath = filePath.maybeRelativeToVolume();
+#if defined(NXA_BUGSNAG_APP_ID)
         NXA_ASSERT_TRUE_WITH_BLOCK(maybeRelativePath.isValid(), [&filePath]() {
             CrashLog::addUserInfoWithKey(filePath.asEncodedString(), "filepath");
             CrashLog::addUserInfoWithKey(Volume{ filePath }.asFilePath().asEncodedString(), "volume");
         });
+#endif
 
         return *maybeRelativePath;
     }
@@ -139,9 +141,11 @@ public:
             NXA_ASSERT_TRUE(location.hasPrefix("file://localhost/"));
 #if defined(NXA_PLATFORM_WINDOWS)
             location = location.subString(17);
+#if defined(NXA_BUGSNAG_APP_ID)
             NXA_ASSERT_TRUE_WITH_BLOCK((location.length() > 2) && (location[1] == ':'), [this]() {
                 CrashLog::addUserInfoWithKey(this->p_rekordboxTrack.asString(), "trackNode");
             });
+#endif
 #elif defined(NXA_PLATFORM_MACOS)
             location = location.subString(16);
             if (location.hasPrefix("//")) {

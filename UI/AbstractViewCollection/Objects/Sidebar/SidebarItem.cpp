@@ -251,6 +251,7 @@ Optional<count> SidebarItem::receiveDraggedCrateAtIndexWithPerItemProgressCallBa
                                                                                    std::function<void(void)>&&,
                                                                                    AndOverWriteExisting)
 {
+#if defined(NXA_BUGSNAG_APP_ID)
     boolean canDragCrateOnItem = false;
     NXA_ASSERT_TRUE_WITH_BLOCK(canDragCrateOnItem, [this]() {
         CrashLog::addUserInfoWithKey({ this->getName().toUtf8().data() }, "itemName");
@@ -259,6 +260,7 @@ Optional<count> SidebarItem::receiveDraggedCrateAtIndexWithPerItemProgressCallBa
             CrashLog::addUserInfoWithKey({ maybeDescription->toUtf8().data() }, "itemDescription");
         }
     });
+#endif
 
     NXA_ALOG("Can not drag crate onto this item");
 }

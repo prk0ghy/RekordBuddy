@@ -116,6 +116,7 @@ public:
 
 #if defined(NXA_PLATFORM_WINDOWS)
 // -- On Windows, we don't have access to a real stacktrace and some other info for now so we make do with this.
+#if defined(NXA_BUGSNAG_APP_ID)
 #if defined(__BASEFILENAME__)
 #define NXA_SET_FILE_METHODNAMESANDLINENUMBER   CrashLog::setFileMethodNamesAndLineNumber(__BASEFILENAME__, __FUNCTION__, __LINE__)
 #else
@@ -134,6 +135,19 @@ public:
             NXA_SET_FILE_METHODNAMESANDLINENUMBER; \
             throw CrashLog::haltWith(NxA::AssertionFailed::exceptionWith(format, __VA_ARGS__)); \
         } while (false)
+#else
+#define NXA_ALOG(text) \
+        do { \
+            NXA_DLOG(text); \
+            exit(-1); \
+        } while (false)
+#define NXA_ALOG_WITH_FORMAT(format, ...) \
+        do { \
+            NXA_DLOG_WITH_FORMAT(format, __VA_ARGS__); \
+            exit(-1); \
+        } while (false)
+#endif
+
 #else
 #define NXA_ALOG(text) \
         do { \

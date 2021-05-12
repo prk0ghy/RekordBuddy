@@ -230,9 +230,11 @@ void MutableCollection::p_renumberTrackIDs()
     this->p_rekordboxTracksPerAbsoluteFilePath.removeAll();
     this->p_rekordboxTracksPerTrackID.removeAll();
 
+#if defined(NXA_BUGSNAG_APP_ID)
     auto volume = this->volume();
     CrashLog::addBreadCrumb(String::stringWithFormat("Tracks for rekordbox collection on volume '%s' (%s) were renumbered.",
                                                      volume.name().asUTF8(), volume.asFilePath().asEncodedString().asUTF8()));
+#endif
 
     this->p_tracksWillNeedRenumbering = false;
 }

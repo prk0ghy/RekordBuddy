@@ -59,9 +59,11 @@ Common::Property::TypeID Property::propertyTypeIDForPersistentObjectType(RekordB
     };
 
     auto result = convertionTable.maybeValueForKey(persistentObjectType);
+#if defined(NXA_BUGSNAG_APP_ID)
     NXA_ASSERT_TRUE_WITH_BLOCK(result.isValid(), [&persistentObjectType]{
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%d", static_cast<integer>(persistentObjectType)), "persistentObjectType");
     });
+#endif
 
     return *result;
 }
@@ -101,9 +103,11 @@ RekordBuddy::CollectionImplementation::RBSchema::Type Property::persistentObject
     };
 
     const auto result = convertionTable.maybeValueForKey(type);
+#if defined(NXA_BUGSNAG_APP_ID)
     NXA_ASSERT_TRUE_WITH_BLOCK(result.isValid(), [&type]{
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%d", static_cast<integer>(type)), "propertyType");
     });
+#endif
 
     return *result;
 }

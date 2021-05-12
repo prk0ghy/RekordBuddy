@@ -214,7 +214,9 @@ Array<CollectionOpenError> MutableCollectionList::refreshCollectionsWithPerColle
                                                                     collection->volume().name().asUTF8(),
                                                                     collection->volume().asFilePath().asEncodedString().asUTF8());
                         NXA_DLOG_WITH_FORMAT("%s", foundString.asUTF8());
+#if defined(NXA_BUGSNAG_APP_ID)
                         CrashLog::addBreadCrumb(foundString);
+#endif
 
                         if (collection->shouldBeOpenedLazily()) {
                             // -- Return it unopened so it maybe can be opened lazy
@@ -228,7 +230,9 @@ Array<CollectionOpenError> MutableCollectionList::refreshCollectionsWithPerColle
                                                                          collection->volume().name().asUTF8(),
                                                                          collection->volume().asFilePath().asEncodedString().asUTF8());
                             NXA_DLOG_WITH_FORMAT("%s", openedString.asUTF8());
+#if defined(NXA_BUGSNAG_APP_ID)
                             CrashLog::addBreadCrumb(openedString);
+#endif
                             return this->p_viewCollectionWith(collection);
                         }
 
@@ -352,14 +356,18 @@ boolean MutableCollectionList::saveChangesWithProgress(std::function<void(double
         auto& collection = this->p_collectionsInSidebar[index];
 
         if (collection->hasChangesToSave()) {
+#if defined(NXA_BUGSNAG_APP_ID)
             CrashLog::addBreadCrumb(String::stringWithFormat("Saving %s.", collection->getName().toUtf8().constData()));
+#endif
 
             collection->saveChangesWithProgress([numberOfCollections, progressCallBack, &total](double a) {
                 total += a / numberOfCollections;
                 progressCallBack(total);
             });
 
+#if defined(NXA_BUGSNAG_APP_ID)
             CrashLog::addBreadCrumb("Done.");
+#endif
         }
         else {
             total += 1.0 / numberOfCollections;

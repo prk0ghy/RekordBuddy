@@ -193,6 +193,7 @@ void setupThreading()
 
 int main(int argc, char* argv[])
 {
+#if defined(NXA_BUGSNAG_APP_ID)
 #if defined(NXA_PLATFORM_MACOS)
     CrashLog::initWithAPIKeyAndAppVersion({ NXA_BUGSNAG_APP_ID }, String{ RKB_VERSION_CRASHLOG_STRING });
 #elif defined(NXA_PLATFORM_WINDOWS)
@@ -206,6 +207,7 @@ int main(int argc, char* argv[])
         Platform::alertWithTextAndInformativeText("It looks like you encountered a crash during the last session."_String,
                                                   "A crash log will be sent to help us identify the issue."_String);
     }
+#endif
 
     Rekordbox::setCurrentRekordBuddyVersion(String::stringWithFormat("%s(%s)", RKB_VERSION_STRING, NXA_GIT_COMMIT_HASH));
 
@@ -256,7 +258,9 @@ int main(int argc, char* argv[])
         auto logString = String::stringWithFormat("Found volume '%s' at '%s'.",
                                                   volume.name().asUTF8(),
                                                   volume.asFilePath().asEncodedString().asUTF8());
+#if defined(NXA_BUGSNAG_APP_ID)
         CrashLog::addBreadCrumb(logString);
+#endif
         NXA_BETA_LOG_WITH_FORMAT("%s", logString.asUTF8());
     }
 #endif

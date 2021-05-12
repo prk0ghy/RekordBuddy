@@ -165,11 +165,13 @@ void MutableFolder::p_insertNewCrateAtIndexAsCopyOfWithPerItemProgressCallBack(c
                                                                                                callback,
                                                                                                MutableFolder::AndUpdateTracks::No);
 
+#if defined(NXA_BUGSNAG_APP_ID)
     NXA_ASSERT_TRUE_WITH_BLOCK(index <= this->numberOfSubCrates(), [this, &index, &newCrateIndex]() {
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", index), "index");
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", newCrateIndex), "newCrateIndex");
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", this->numberOfSubCrates()), "numberOfSubCrates");
     });
+#endif
 
     this->p_moveSubCrateAtIndexToIndex(newCrateIndex, index);
 }
@@ -179,10 +181,12 @@ void MutableFolder::addSubCrateAtIndexAsCopyOfWithPerItemProgressCallBack(count 
                                                                           const std::function<void(void)>& callback,
                                                                           AndUpdateTracks andUpdateTracks)
 {
+#if defined(NXA_BUGSNAG_APP_ID)
     NXA_ASSERT_TRUE_WITH_BLOCK(index <= this->numberOfSubCrates(), [this, &index]() {
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", index), "index");
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", this->numberOfSubCrates()), "numberOfSubCrates");
     });
+#endif
 
     MutableSet<NotNull<const Track*>> tracksToUpdate;
 

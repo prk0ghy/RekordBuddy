@@ -758,7 +758,9 @@ template <typename Schema>
                 transaction->commit();
             }
             catch (std::runtime_error& e) {
+#if defined(NXA_BUGSNAG_APP_ID)
                 CrashLog::addBreadCrumb(String::stringWithFormat("Caught exception '%s' during collection setup.", e.what()));
+#endif
                 NXA_DLOG_WITH_FORMAT("Exception during setup: %s", e.what());
 
                 return false;
@@ -1181,7 +1183,9 @@ template <typename Schema>
             {
                 auto key = T::className();
                 auto pos = this->p_userData.find(key);
+#if defined(NXA_BUGSNAG_APP_ID)
                 CrashLog::addBreadCrumb(String::stringWithFormat("Adding UserData for '%s'", key.asUTF8()));
+
                 if(pos != this->p_userData.end()) {
                     for (auto& userData : this->p_userData) {
                         CrashLog::addBreadCrumb(String::stringWithFormat("UserData already '%s'", userData.first.asUTF8()));
@@ -1191,6 +1195,7 @@ template <typename Schema>
                 NXA_ASSERT_TRUE_WITH_BLOCK(pos == this->p_userData.end(), [&key]() {
                     CrashLog::addUserInfoWithKey(key, "key");
                 });
+#endif
 
                 this->p_userData.insert(pos, std::pair<String, void*>{ key, data });
             }

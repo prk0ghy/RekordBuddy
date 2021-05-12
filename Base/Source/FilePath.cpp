@@ -39,11 +39,13 @@ using namespace NxA;
 
 FilePath FilePath::filePathByJoiningPaths(const FilePath& first, const FilePath& second)
 {
+#if defined(NXA_BUGSNAG_APP_ID)
     // -- We can't join a second path that is absolute or start with a separator.
     NXA_ASSERT_TRUE_WITH_BLOCK(!second.isAbsolute() && (second.p_path.find_first_of(FilePath::p_separators) != 0), [&first, &second]() {
         CrashLog::addUserInfoWithKey(first.asEncodedString(), "first");
         CrashLog::addUserInfoWithKey(second.asEncodedString(), "second");
     });
+#endif
 
     FilePath firstTrimmed = first.stripTrailingSeparators();
     FilePath secondTrimmed = second.stripTrailingSeparators();
@@ -53,11 +55,13 @@ FilePath FilePath::filePathByJoiningPaths(const FilePath& first, const FilePath&
 
 FilePath FilePath::filePathByJoiningPaths(const Volume& first, const FilePath& second)
 {
+#if defined(NXA_BUGSNAG_APP_ID)
     // -- We can't join a second path that is absolute or start with a separator.
     NXA_ASSERT_TRUE_WITH_BLOCK(!second.isAbsolute() && (second.p_path.find_first_of(FilePath::p_separators) != 0), [&first, &second]() {
         CrashLog::addUserInfoWithKey(first.asFilePath().asEncodedString(), "first");
         CrashLog::addUserInfoWithKey(second.asEncodedString(), "second");
     });
+#endif
 
     FilePath firstTrimmed = first.asFilePath().stripTrailingSeparators();
     FilePath secondTrimmed = second.stripTrailingSeparators();

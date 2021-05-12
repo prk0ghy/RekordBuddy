@@ -92,10 +92,12 @@ Array<Volume> volumesWithRekordBuddyCollection()
                 continue;
             }
 
+#if defined(NXA_BUGSNAG_APP_ID)
             CrashLog::addBreadCrumb(String::stringWithFormat("Found a RB Db on external volume '%s' (%s) at '%s'.",
                                                              volume.name().asUTF8(),
                                                              volume.asFilePath().asEncodedString().asUTF8(),
                                                              databasePath.asEncodedString().asUTF8()));
+#endif
         }
 
         results.append(volume);
@@ -133,7 +135,9 @@ Array<Common::CollectionOfSomeSort> availableRekordBuddyCollectionsWithPerCollec
 {
     static MutableMap<Volume, Common::CollectionOfSomeSort> collectionsAlreadyOpened;
 
+#if defined(NXA_BUGSNAG_APP_ID)
     CrashLog::addBreadCrumb(String::stringWithFormat("Main Rekord Buddy DB is on volume '%s'.", Volume::musicFolderVolume().asFilePath().asEncodedString().asUTF8()));
+#endif
 
     MutableArray<Common::CollectionOfSomeSort> results;
     for (auto&& volume : volumesWithRekordBuddyCollection()) {

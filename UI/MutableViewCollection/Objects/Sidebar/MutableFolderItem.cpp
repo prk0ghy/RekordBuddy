@@ -243,11 +243,12 @@ Optional<count> MutableFolderItem::receiveDraggedCrateAtIndexWithPerItemProgress
                 if (rowInParent != toIndex) {
                     model->beginMoveRows(fromParentIndex, rowInParent, rowInParent, toParentIndex, toIndex);
 
+#if defined(NXA_BUGSNAG_APP_ID)
                     NXA_ASSERT_TRUE_WITH_BLOCK(toIndex <= thisFolder->numberOfSubCrates(), [thisFolder, &toIndex]() {
                         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", toIndex), "toIndex");
                         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", thisFolder->numberOfSubCrates()), "numberOfSubCrates");
                     });
-
+#endif
                     thisFolder->moveSubCrateToIndex(*maybeMutableDraggedCrate, toIndex);
 
                     model->endMoveRows();

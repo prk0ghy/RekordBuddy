@@ -107,10 +107,12 @@ public:
     {
         auto absoluteFilePath = this->absoluteFilePath();
         auto maybeRelativePath = absoluteFilePath.maybeRelativeToVolume();
+#if defined(NXA_BUGSNAG_APP_ID)
         NXA_ASSERT_TRUE_WITH_BLOCK(maybeRelativePath.isValid(), [&absoluteFilePath]() {
             CrashLog::addUserInfoWithKey(absoluteFilePath.asEncodedString(), "filepath");
             CrashLog::addUserInfoWithKey(Volume{ absoluteFilePath }.asFilePath().asEncodedString(), "volume");
         });
+#endif
 
         return *maybeRelativePath;
     }

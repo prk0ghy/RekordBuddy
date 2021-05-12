@@ -239,7 +239,9 @@ void MainWindow::closeEvent(QCloseEvent* event)
         return;
     }
 
+#if defined(NXA_BUGSNAG_APP_ID)
     CrashLog::addBreadCrumb("Exiting.");
+#endif
 
     this->saveWindowSettings();
 

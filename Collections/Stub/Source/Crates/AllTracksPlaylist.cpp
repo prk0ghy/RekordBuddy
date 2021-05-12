@@ -37,10 +37,12 @@ Optional<count> MutableAllTracksPlaylist::p_addExistingTrackAtIndex(NotNull<Comm
     // -- If it's in the collection that means creating it has added it to the AllTracksPlaylist already.
     // -- So we just check to see if it's already where it should be and if not, move it.
     auto indices = Common::Playlist::indicesForTrackIn(track, *this);
+#if defined(NXA_BUGSNAG_APP_ID)
     NXA_ASSERT_TRUE_WITH_BLOCK(indices.length() == 1, [&indices, &track]() {
         CrashLog::addUserInfoWithKey(String::stringWithFormat("%llu", indices.length()), "nbOfIndicesFound");
         CrashLog::addUserInfoWithKey(track->absoluteFilePath().asEncodedString(), "absoluteFilePath");
     });
+#endif
 
     auto currentIndex = indices.firstObject();
     if (toIndex == currentIndex) {

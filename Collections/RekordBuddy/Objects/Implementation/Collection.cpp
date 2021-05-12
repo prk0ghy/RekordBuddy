@@ -162,7 +162,9 @@ Optional<Common::Collection::Error> Collection::open()
         AllTracksPlaylist::inCollection(*this);
     }
     catch (Exception& e) {
+#if defined(NXA_BUGSNAG_APP_ID)
         CrashLog::addBreadCrumb(String::stringWithFormat("Error opening Rekord Buddy collection: '%s'.", e.what()));
+#endif
 
         return Common::Collection::Error::Corrupted;
     }

@@ -383,11 +383,13 @@ template <typename Schema>
                 auto&& argOid = argument.localBasePointer->*argument.localMemberPointer;
 
                 // -- This can happen when a non-optional to-one relationship is not set to something. Maybe you meant to use a to-many?
+#if defined(NXA_BUGSNAG_APP_ID)
                 NXA_ASSERT_TRUE_WITH_BLOCK(argOid.isValid(), [&statement, &argument]() {
                     CrashLog::addUserInfoWithKey({ statement.getQuery().c_str() }, "statement");
                     CrashLog::addUserInfoWithKey({ argument.localColumnName }, "localColumnName");
                     CrashLog::addUserInfoWithKey({ argument.otherColumnName }, "otherColumnName");
                 });
+#endif
                 NXA_ASSERT_TRUE(Schema::typeIs(argOid.objectType(), argument.localResultType));
 
                 std::ostringstream queryname;

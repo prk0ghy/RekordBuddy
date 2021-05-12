@@ -92,16 +92,44 @@ endif()
 nxa_project(Base)
 
 if(NOT ${NXA_CMAKE_PLATFORM} STREQUAL "Linux")
-    if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
-        set(NXA_CRASHLOG_IMPLEMENTATION CrashLogMacOSObjectiveC.m)
+    if(NOT ${NXA_BUGSNAG_APP_ID} STREQUAL "")
+        set(SOURCE_FILES
+            ${SOURCE_FILES}
+            Source/CrashLog${NXA_CMAKE_PLATFORM_PATH_POSTFIX}
+            Source/${NXA_CRASHLOG_IMPLEMENTATION})
     endif()
 
     add_library(Base STATIC
                 ${SOURCE_FILES}
-                Source/CrashLog${NXA_CMAKE_PLATFORM_PATH_POSTFIX}
-                Source/${NXA_CRASHLOG_IMPLEMENTATION}
                 Source/XMLDocument.cpp
                 Source/XMLNode.cpp)
+
+    if(NOT ${NXA_BUGSNAG_APP_ID} STREQUAL "")
+        if(NOT ${NXA_CMAKE_PLATFORM} STREQUAL "Linux")
+            if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
+                set(NXA_CRASHLOG_IMPLEMENTATION CrashLogMacOSObjectiveC.m)
+            endif()
+
+            if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
+                # -- Bugsnag requires the use of @import
+                target_compile_options(Base PRIVATE -fmodules)
+
+                if("${NXA_BUGSNAG_DIR}" STREQUAL "")
+                    message(FATAL_ERROR "NXA_BUGSNAG_DIR is not defined. Must point to your bugsnag build folder install.")
+                endif()
+
+                find_library(BugsnagFramework Bugsnag "${NXA_BUGSNAG_DIR}" NO_DEFAULT_PATH)
+                mark_as_advanced(BugsnagFramework)
+                target_link_libraries(Base PRIVATE ${BugsnagFramework})
+
+                if (NOT BugsnagFramework)
+                    message(FATAL_ERROR "BugsnagFramework required, but not found!")
+                endif()
+
+                message(STATUS "Bugsnag Framework found at ${BugsnagFramework}.")
+            endif()
+        endif()
+    endif()
 
     # -- TODO: include path for project so only public headers of Base are visible
     target_include_directories(Base

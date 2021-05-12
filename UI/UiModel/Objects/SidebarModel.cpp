@@ -591,6 +591,7 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
 
             auto sidebarSelectionWillNeedClearing = this->displayedItemIsnItemsOrChildOfItemsAtIndices(QModelIndexList{ parentIndex });
 
+#if defined(NXA_BUGSNAG_APP_ID)
             auto maybeFromCollectionName = droppedCollection->maybeParentCollectionTypeName();
             auto maybeToCollectionName = receivingItem->maybeParentCollectionTypeName();
             if (maybeFromCollectionName.isValid() &&
@@ -602,6 +603,7 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
                                                                  maybeFromVolumeFullName.isValid() ? maybeFromVolumeFullName->toUtf8().constData() : "Unknown Volume",
                                                                  maybeToVolumeFullName.isValid() ? maybeToVolumeFullName->toUtf8().constData() : "Unknown Volume"));
             }
+#endif
 
             receivingItem->receiveDraggedCollectionWithPerItemProgressCallBack(droppedCollection, [&job]() {
                 job->incrementProgressByOne();
@@ -679,7 +681,9 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
 
         this->p_workQueue.enqueueJob(*maybeNarrowCast<int>(totalNumberOfItemsToProcess),
                                      [this, parentIndex, row, receivingItem, droppedCrates, totalNumberOfItemsToProcess](auto job) {
+#if defined(NXA_BUGSNAG_APP_ID)
             boolean onlyEmitEventForFirstItems = true;
+#endif
 
             job->updateStatus(QString("Copying %1 crates and tracks...").arg(totalNumberOfItemsToProcess));
 
@@ -693,6 +697,7 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
             for (auto&& [index, crate] : *droppedCrates) {
                 NXA_ASSERT_TRUE_DEBUG(receivingItem->canReceive(crate.get()));
 
+#if defined(NXA_BUGSNAG_APP_ID)
                 if (onlyEmitEventForFirstItems) {
                     auto maybeFromCollectionName = crate->maybeParentCollectionTypeName();
                     auto maybeToCollectionName = receivingItem->maybeParentCollectionTypeName();
@@ -706,6 +711,7 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
 
                     onlyEmitEventForFirstItems = false;
                 }
+#endif
 
                 auto overWriteExisting = SidebarItem::AndOverWriteExisting::Yes;
                 if (!namesOfCratesAlreadyDropped.addingObjectCausedAnInsertion(fromString(crate->getName()))) {
@@ -798,13 +804,16 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
         this->p_workQueue.enqueueJob(*maybeNarrowCast<int>(droppedTracks->length()),
                                      [this, receivingItem, droppedTracks](auto job) {
             auto currentIndex = receivingItem->numberOfTracks();
+#if defined(NXA_BUGSNAG_APP_ID)
             boolean onlyEmitEventForFirstItems = true;
+#endif
 
             MutableArray<count> indicesOfTracksAdded;
 
             job->updateStatus(QString("Copying %1 tracks...").arg(droppedTracks->length()));
 
             for (auto&& [index, track] : *droppedTracks) {
+#if defined(NXA_BUGSNAG_APP_ID)
                 if (onlyEmitEventForFirstItems) {
                     auto fromCollectionName = track->nameOfParentCollection();
                     auto maybeToCollectionName = receivingItem->maybeParentCollectionTypeName();
@@ -817,6 +826,7 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
 
                     onlyEmitEventForFirstItems = false;
                 }
+#endif
 
                 if (receivingItem->canReceive(track)) {
                     auto receivingAtIndex = std::min(currentIndex++, receivingItem->numberOfTracks());
@@ -834,10 +844,12 @@ bool SidebarModel::dropMimeData(const QMimeData* mimeData, Qt::DropAction action
             MutableArray<NotNull<AbstractTrackItem*>> tracksThatHaveChanged;
             auto tracks = receivingItem->tracks().get();
             for (auto&& indexOfTrackAdded : indicesOfTracksAdded) {
+#if defined(NXA_BUGSNAG_APP_ID)
                 NXA_ASSERT_TRUE_WITH_BLOCK(indexOfTrackAdded < tracks.length(), [&indexOfTrackAdded, &tracks]() {
                     CrashLog::addUserInfoWithKey(String::stringWithFormat("%d", indexOfTrackAdded), "indexOfTrackAdded");
                     CrashLog::addUserInfoWithKey(String::stringWithFormat("%d", tracks.length()), "tracks.length");
                 });
+#endif
 
                 tracksThatHaveChanged.append(NotNull<AbstractTrackItem*>{ tracks[indexOfTrackAdded].get() });
             }
