@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentCrateClone;
 
-template class std::shared_ptr<PersistentCrateClone>;
-
 template class NxA::Array<std::shared_ptr<PersistentCrateClone>>;
 void PersistentCrateClone::bind(SourceBinder& parentBinder)
 {
@@ -41,7 +39,7 @@ void PersistentCrateClone::faultObject()
         return;
     }
     PersistentCrate::faultObject();
-    
+
 }
 void PersistentCrateClone::deleteObject()
 {
@@ -89,5 +87,3 @@ void PersistentCrateClone::setCloneOf(std::shared_ptr<PersistentCrate> inverse)
         inverse->manyClones->append(sharedFromThis<PersistentCrateClone>());
     }
 }
-
-

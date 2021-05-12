@@ -26,8 +26,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentDecimalProperty;
 
-template class std::shared_ptr<PersistentDecimalProperty>;
-
 template class NxA::Array<std::shared_ptr<PersistentDecimalProperty>>;
 void PersistentDecimalProperty::bind(SourceBinder& parentBinder)
 {
@@ -170,7 +168,7 @@ void PersistentDecimalProperty::addParentTracksItem(const std::shared_ptr<Persis
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyDecimalProperties->append(*lockedContext->fetchObject<PersistentDecimalProperty>(objectId));
     manyParentTracks->append(inverse);
 }
@@ -349,5 +347,3 @@ void PersistentDecimalProperty::removeSortingPlaylistsItem(const std::shared_ptr
     manySortingPlaylists->removeObjectWithID(inverse->objectId);
     inverse->maybeDecimalPropertyUsedToSortByOptionalId = {};
 }
-
-

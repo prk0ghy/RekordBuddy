@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackComments;
 
-template class std::shared_ptr<PersistentTrackComments>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackComments>>;
 void PersistentTrackComments::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackComments::deleteObject()
     }
     PersistentStringProperty::deleteObject();
 }
-
-

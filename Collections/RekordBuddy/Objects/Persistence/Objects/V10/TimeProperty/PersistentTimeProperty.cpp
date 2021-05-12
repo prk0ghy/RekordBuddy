@@ -26,8 +26,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTimeProperty;
 
-template class std::shared_ptr<PersistentTimeProperty>;
-
 template class NxA::Array<std::shared_ptr<PersistentTimeProperty>>;
 void PersistentTimeProperty::bind(SourceBinder& parentBinder)
 {
@@ -185,7 +183,7 @@ void PersistentTimeProperty::addParentTracksItem(const std::shared_ptr<Persisten
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyTimeProperties->append(*lockedContext->fetchObject<PersistentTimeProperty>(objectId));
     manyParentTracks->append(inverse);
 }
@@ -364,5 +362,3 @@ void PersistentTimeProperty::removeSortingPlaylistsItem(const std::shared_ptr<Pe
     manySortingPlaylists->removeObjectWithID(inverse->objectId);
     inverse->maybeTimePropertyUsedToSortByOptionalId = {};
 }
-
-

@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackPlayCount;
 
-template class std::shared_ptr<PersistentTrackPlayCount>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackPlayCount>>;
 void PersistentTrackPlayCount::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackPlayCount::deleteObject()
     }
     PersistentIntegerProperty::deleteObject();
 }
-
-

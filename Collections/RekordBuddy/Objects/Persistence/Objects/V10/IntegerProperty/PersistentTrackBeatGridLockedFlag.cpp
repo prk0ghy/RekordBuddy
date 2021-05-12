@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackBeatGridLockedFlag;
 
-template class std::shared_ptr<PersistentTrackBeatGridLockedFlag>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackBeatGridLockedFlag>>;
 void PersistentTrackBeatGridLockedFlag::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackBeatGridLockedFlag::deleteObject()
     }
     PersistentBooleanProperty::deleteObject();
 }
-
-

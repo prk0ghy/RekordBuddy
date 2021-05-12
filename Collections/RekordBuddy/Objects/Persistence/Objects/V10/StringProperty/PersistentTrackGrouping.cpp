@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackGrouping;
 
-template class std::shared_ptr<PersistentTrackGrouping>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackGrouping>>;
 void PersistentTrackGrouping::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackGrouping::deleteObject()
     }
     PersistentStringProperty::deleteObject();
 }
-
-

@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackDateAdded;
 
-template class std::shared_ptr<PersistentTrackDateAdded>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackDateAdded>>;
 void PersistentTrackDateAdded::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackDateAdded::deleteObject()
     }
     PersistentDateProperty::deleteObject();
 }
-
-

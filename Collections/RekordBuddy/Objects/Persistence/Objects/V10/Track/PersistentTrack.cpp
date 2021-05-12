@@ -34,8 +34,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrack;
 
-template class std::shared_ptr<PersistentTrack>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrack>>;
 void PersistentTrack::bind(SourceBinder& parentBinder)
 {
@@ -65,7 +63,7 @@ void PersistentTrack::faultObject()
     PersistentObject::faultObject();
     manyArtists->faultRelationship();
     manyDecimalProperties->faultRelationship();
-    
+
     manyIntegerProperties->faultRelationship();
     manyLogEntries->faultRelationship();
     manyMarkerImportOffsets->faultRelationship();
@@ -241,7 +239,7 @@ void PersistentTrack::addArtistsItem(const std::shared_ptr<PersistentArtist>& in
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyTracksCreditedAsArtist->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyArtists->append(inverse);
 }
@@ -365,7 +363,7 @@ void PersistentTrack::addDecimalPropertiesItem(const std::shared_ptr<PersistentD
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyParentTracks->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyDecimalProperties->append(inverse);
 }
@@ -527,7 +525,7 @@ void PersistentTrack::addIntegerPropertiesItem(const std::shared_ptr<PersistentI
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyParentTracks->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyIntegerProperties->append(inverse);
 }
@@ -1025,7 +1023,7 @@ void PersistentTrack::addParentPlaylistsItem(const std::shared_ptr<PersistentPla
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyTracks->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyParentPlaylists->append(inverse);
 }
@@ -1147,7 +1145,7 @@ void PersistentTrack::addProducersItem(const std::shared_ptr<PersistentArtist>& 
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyTracksCreditedAsProducer->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyProducers->append(inverse);
 }
@@ -1268,7 +1266,7 @@ void PersistentTrack::addRemixersItem(const std::shared_ptr<PersistentArtist>& i
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyTracksCreditedAsRemixer->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyRemixers->append(inverse);
 }
@@ -1392,7 +1390,7 @@ void PersistentTrack::addStringPropertiesItem(const std::shared_ptr<PersistentSt
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyParentTracks->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyStringProperties->append(inverse);
 }
@@ -1514,7 +1512,7 @@ void PersistentTrack::addTimePropertiesItem(const std::shared_ptr<PersistentTime
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyParentTracks->append(*lockedContext->fetchObject<PersistentTrack>(objectId));
     manyTimeProperties->append(inverse);
 }
@@ -1548,5 +1546,3 @@ void PersistentTrack::removeTimePropertiesItem(const std::shared_ptr<PersistentT
     manyTimeProperties->removeObjectWithID(inverse->objectId);
     inverse->manyParentTracks->removeObjectWithID(objectId);
 }
-
-

@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackLength;
 
-template class std::shared_ptr<PersistentTrackLength>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackLength>>;
 void PersistentTrackLength::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackLength::deleteObject()
     }
     PersistentDecimalProperty::deleteObject();
 }
-
-

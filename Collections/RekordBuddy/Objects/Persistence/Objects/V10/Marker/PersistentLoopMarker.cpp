@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentLoopMarker;
 
-template class std::shared_ptr<PersistentLoopMarker>;
-
 template class NxA::Array<std::shared_ptr<PersistentLoopMarker>>;
 void PersistentLoopMarker::bind(SourceBinder& parentBinder)
 {
@@ -59,5 +57,3 @@ void PersistentLoopMarker::setLengthInSeconds(DecimalNumber lengthInSeconds)
     auto contextLock = getContext()->ensureUnfaultedAndBorrowLock(objectId);
     getContext()->updateObject(objectId, lengthInSecondsAttribute, lengthInSeconds);
 }
-
-

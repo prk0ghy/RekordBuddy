@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentGridMarker;
 
-template class std::shared_ptr<PersistentGridMarker>;
-
 template class NxA::Array<std::shared_ptr<PersistentGridMarker>>;
 void PersistentGridMarker::bind(SourceBinder& parentBinder)
 {
@@ -76,5 +74,3 @@ void PersistentGridMarker::setBeatsPerMinute(DecimalNumber beatsPerMinute)
     auto contextLock = getContext()->ensureUnfaultedAndBorrowLock(objectId);
     getContext()->updateObject(objectId, beatsPerMinuteAttribute, beatsPerMinute);
 }
-
-

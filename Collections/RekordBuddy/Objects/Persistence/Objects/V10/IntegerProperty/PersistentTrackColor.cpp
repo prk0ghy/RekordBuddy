@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackColor;
 
-template class std::shared_ptr<PersistentTrackColor>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackColor>>;
 void PersistentTrackColor::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackColor::deleteObject()
     }
     PersistentIntegerProperty::deleteObject();
 }
-
-

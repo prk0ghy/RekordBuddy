@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentDateProperty;
 
-template class std::shared_ptr<PersistentDateProperty>;
-
 template class NxA::Array<std::shared_ptr<PersistentDateProperty>>;
 void PersistentDateProperty::bind(SourceBinder& parentBinder)
 {
@@ -91,5 +89,3 @@ void PersistentDateProperty::setYear(integer16 year)
     auto contextLock = getContext()->ensureUnfaultedAndBorrowLock(objectId);
     getContext()->updateObject(objectId, yearAttribute, year);
 }
-
-

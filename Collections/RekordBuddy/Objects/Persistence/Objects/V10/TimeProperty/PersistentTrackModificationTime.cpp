@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackModificationTime;
 
-template class std::shared_ptr<PersistentTrackModificationTime>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackModificationTime>>;
 void PersistentTrackModificationTime::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackModificationTime::deleteObject()
     }
     PersistentTimeProperty::deleteObject();
 }
-
-

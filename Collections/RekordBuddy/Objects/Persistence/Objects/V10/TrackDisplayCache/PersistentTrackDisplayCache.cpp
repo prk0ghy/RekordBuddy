@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackDisplayCache;
 
-template class std::shared_ptr<PersistentTrackDisplayCache>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackDisplayCache>>;
 void PersistentTrackDisplayCache::bind(SourceBinder& parentBinder)
 {
@@ -42,7 +40,7 @@ void PersistentTrackDisplayCache::faultObject()
         return;
     }
     PersistentObject::faultObject();
-    
+
 }
 void PersistentTrackDisplayCache::deleteObject()
 {
@@ -102,5 +100,3 @@ void PersistentTrackDisplayCache::setParentTrack(std::shared_ptr<PersistentTrack
         inverse->displayCacheId = objectId;
     }
 }
-
-

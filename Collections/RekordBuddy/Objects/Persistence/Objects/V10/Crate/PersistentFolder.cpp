@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentFolder;
 
-template class std::shared_ptr<PersistentFolder>;
-
 template class NxA::Array<std::shared_ptr<PersistentFolder>>;
 void PersistentFolder::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentFolder::deleteObject()
     }
     PersistentCrate::deleteObject();
 }
-
-

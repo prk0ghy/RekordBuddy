@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackSampleRate;
 
-template class std::shared_ptr<PersistentTrackSampleRate>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackSampleRate>>;
 void PersistentTrackSampleRate::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackSampleRate::deleteObject()
     }
     PersistentIntegerProperty::deleteObject();
 }
-
-

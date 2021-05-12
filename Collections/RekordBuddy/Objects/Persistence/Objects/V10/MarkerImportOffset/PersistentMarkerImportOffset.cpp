@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentMarkerImportOffset;
 
-template class std::shared_ptr<PersistentMarkerImportOffset>;
-
 template class NxA::Array<std::shared_ptr<PersistentMarkerImportOffset>>;
 void PersistentMarkerImportOffset::bind(SourceBinder& parentBinder)
 {
@@ -43,7 +41,7 @@ void PersistentMarkerImportOffset::faultObject()
         return;
     }
     PersistentObject::faultObject();
-    
+
 }
 void PersistentMarkerImportOffset::deleteObject()
 {
@@ -117,5 +115,3 @@ void PersistentMarkerImportOffset::setParentTrack(std::shared_ptr<PersistentTrac
         inverse->manyMarkerImportOffsets->append(sharedFromThis<PersistentMarkerImportOffset>());
     }
 }
-
-

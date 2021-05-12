@@ -30,8 +30,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentSortingPlaylist;
 
-template class std::shared_ptr<PersistentSortingPlaylist>;
-
 template class NxA::Array<std::shared_ptr<PersistentSortingPlaylist>>;
 void PersistentSortingPlaylist::bind(SourceBinder& parentBinder)
 {
@@ -82,11 +80,11 @@ void PersistentSortingPlaylist::faultObject()
         return;
     }
     PersistentFilterPlaylist::faultObject();
-    
-    
-    
-    
-    
+
+
+
+
+
 }
 void PersistentSortingPlaylist::deleteObject()
 {
@@ -286,5 +284,3 @@ void PersistentSortingPlaylist::setMaybeTimePropertyUsedToSortBy(Optional<std::s
         derel->manySortingPlaylists->append(sharedFromThis<PersistentSortingPlaylist>());
     }
 }
-
-

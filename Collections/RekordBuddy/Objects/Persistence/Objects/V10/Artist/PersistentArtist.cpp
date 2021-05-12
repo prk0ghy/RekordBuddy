@@ -25,9 +25,8 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentArtist;
 
-template class std::shared_ptr<PersistentArtist>;
-
 template class NxA::Array<std::shared_ptr<PersistentArtist>>;
+
 void PersistentArtist::bind(SourceBinder& parentBinder)
 {
     PersistentObject::bind(parentBinder);
@@ -167,7 +166,7 @@ void PersistentArtist::addTracksCreditedAsArtistItem(const std::shared_ptr<Persi
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyArtists->append(*lockedContext->fetchObject<PersistentArtist>(objectId));
     manyTracksCreditedAsArtist->append(inverse);
 }
@@ -291,7 +290,7 @@ void PersistentArtist::addTracksCreditedAsProducerItem(const std::shared_ptr<Per
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyProducers->append(*lockedContext->fetchObject<PersistentArtist>(objectId));
     manyTracksCreditedAsProducer->append(inverse);
 }
@@ -415,7 +414,7 @@ void PersistentArtist::addTracksCreditedAsRemixerItem(const std::shared_ptr<Pers
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyRemixers->append(*lockedContext->fetchObject<PersistentArtist>(objectId));
     manyTracksCreditedAsRemixer->append(inverse);
 }
@@ -449,5 +448,3 @@ void PersistentArtist::removeTracksCreditedAsRemixerItem(const std::shared_ptr<P
     manyTracksCreditedAsRemixer->removeObjectWithID(inverse->objectId);
     inverse->manyRemixers->removeObjectWithID(objectId);
 }
-
-

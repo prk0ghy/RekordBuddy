@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentMarker;
 
-template class std::shared_ptr<PersistentMarker>;
-
 template class NxA::Array<std::shared_ptr<PersistentMarker>>;
 void PersistentMarker::bind(SourceBinder& parentBinder)
 {
@@ -43,7 +41,7 @@ void PersistentMarker::faultObject()
         return;
     }
     PersistentObject::faultObject();
-    
+
 }
 void PersistentMarker::deleteObject()
 {
@@ -117,5 +115,3 @@ void PersistentMarker::setParentTrack(std::shared_ptr<PersistentTrack> inverse)
         inverse->manyMarkers->append(sharedFromThis<PersistentMarker>());
     }
 }
-
-

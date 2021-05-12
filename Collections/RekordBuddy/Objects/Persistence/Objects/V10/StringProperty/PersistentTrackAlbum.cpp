@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackAlbum;
 
-template class std::shared_ptr<PersistentTrackAlbum>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackAlbum>>;
 void PersistentTrackAlbum::bind(SourceBinder& parentBinder)
 {
@@ -61,5 +59,3 @@ void PersistentTrackAlbum::setMaybeNumberOfTracks(Optional<integer16> maybeNumbe
     auto contextLock = getContext()->ensureUnfaultedAndBorrowLock(objectId);
     getContext()->updateObject(objectId, maybeNumberOfTracksAttribute, maybeNumberOfTracks);
 }
-
-

@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentLogEntry;
 
-template class std::shared_ptr<PersistentLogEntry>;
-
 template class NxA::Array<std::shared_ptr<PersistentLogEntry>>;
 void PersistentLogEntry::bind(SourceBinder& parentBinder)
 {
@@ -44,7 +42,7 @@ void PersistentLogEntry::faultObject()
         return;
     }
     PersistentObject::faultObject();
-    
+
 }
 void PersistentLogEntry::deleteObject()
 {
@@ -131,5 +129,3 @@ void PersistentLogEntry::setMaybeRelatedToTrack(Optional<std::shared_ptr<Persist
         derel->manyLogEntries->append(sharedFromThis<PersistentLogEntry>());
     }
 }
-
-

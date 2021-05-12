@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentFilterPlaylist;
 
-template class std::shared_ptr<PersistentFilterPlaylist>;
-
 template class NxA::Array<std::shared_ptr<PersistentFilterPlaylist>>;
 void PersistentFilterPlaylist::bind(SourceBinder& parentBinder)
 {
@@ -61,5 +59,3 @@ void PersistentFilterPlaylist::setMaybePredicate(Optional<Blob> maybePredicate)
     auto contextLock = getContext()->ensureUnfaultedAndBorrowLock(objectId);
     getContext()->updateObject(objectId, maybePredicateAttribute, maybePredicate);
 }
-
-

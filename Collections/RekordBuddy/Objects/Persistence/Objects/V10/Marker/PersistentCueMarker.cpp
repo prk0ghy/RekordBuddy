@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentCueMarker;
 
-template class std::shared_ptr<PersistentCueMarker>;
-
 template class NxA::Array<std::shared_ptr<PersistentCueMarker>>;
 void PersistentCueMarker::bind(SourceBinder& parentBinder)
 {
@@ -91,5 +89,3 @@ void PersistentCueMarker::setMaybeRgbColor(Optional<integer32> maybeRgbColor)
     auto contextLock = getContext()->ensureUnfaultedAndBorrowLock(objectId);
     getContext()->updateObject(objectId, maybeRgbColorAttribute, maybeRgbColor);
 }
-
-

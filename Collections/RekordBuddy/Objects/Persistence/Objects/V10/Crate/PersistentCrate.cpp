@@ -26,8 +26,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentCrate;
 
-template class std::shared_ptr<PersistentCrate>;
-
 template class NxA::Array<std::shared_ptr<PersistentCrate>>;
 void PersistentCrate::bind(SourceBinder& parentBinder)
 {
@@ -47,7 +45,7 @@ void PersistentCrate::faultObject()
     }
     PersistentObject::faultObject();
     manyClones->faultRelationship();
-    
+
     manySubCrates->faultRelationship();
 }
 void PersistentCrate::deleteObject()
@@ -378,5 +376,3 @@ void PersistentCrate::removeSubCratesItem(const std::shared_ptr<PersistentCrate>
     manySubCrates->removeObjectWithID(inverse->objectId);
     inverse->maybeParentCrateOptionalId = {};
 }
-
-

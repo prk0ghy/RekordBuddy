@@ -26,8 +26,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentIntegerProperty;
 
-template class std::shared_ptr<PersistentIntegerProperty>;
-
 template class NxA::Array<std::shared_ptr<PersistentIntegerProperty>>;
 void PersistentIntegerProperty::bind(SourceBinder& parentBinder)
 {
@@ -170,7 +168,7 @@ void PersistentIntegerProperty::addParentTracksItem(const std::shared_ptr<Persis
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyIntegerProperties->append(*lockedContext->fetchObject<PersistentIntegerProperty>(objectId));
     manyParentTracks->append(inverse);
 }
@@ -349,5 +347,3 @@ void PersistentIntegerProperty::removeSortingPlaylistsItem(const std::shared_ptr
     manySortingPlaylists->removeObjectWithID(inverse->objectId);
     inverse->maybeIntegerPropertyUsedToSortByOptionalId = {};
 }
-
-

@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackRecordLabel;
 
-template class std::shared_ptr<PersistentTrackRecordLabel>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackRecordLabel>>;
 void PersistentTrackRecordLabel::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackRecordLabel::deleteObject()
     }
     PersistentStringProperty::deleteObject();
 }
-
-

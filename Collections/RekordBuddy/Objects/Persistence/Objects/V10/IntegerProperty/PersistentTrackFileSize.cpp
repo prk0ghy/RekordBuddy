@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackFileSize;
 
-template class std::shared_ptr<PersistentTrackFileSize>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackFileSize>>;
 void PersistentTrackFileSize::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackFileSize::deleteObject()
     }
     PersistentIntegerProperty::deleteObject();
 }
-
-

@@ -27,8 +27,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentPlaylist;
 
-template class std::shared_ptr<PersistentPlaylist>;
-
 template class NxA::Array<std::shared_ptr<PersistentPlaylist>>;
 void PersistentPlaylist::bind(SourceBinder& parentBinder)
 {
@@ -274,7 +272,7 @@ void PersistentPlaylist::addTracksItem(const std::shared_ptr<PersistentTrack>& i
     auto contextLock = lockedContext->ensureUnfaultedAndBorrowLock(objectId);
     lockedContext->updateObject(objectId);
     lockedContext->updateObject(inverse->objectID());
-    
+
     inverse->manyParentPlaylists->append(*lockedContext->fetchObject<PersistentPlaylist>(objectId));
     manyTracks->append(inverse);
 }
@@ -308,5 +306,3 @@ void PersistentPlaylist::removeTracksItem(const std::shared_ptr<PersistentTrack>
     manyTracks->removeObjectWithID(inverse->objectId);
     inverse->manyParentPlaylists->removeObjectWithID(objectId);
 }
-
-

@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackDiscNumber;
 
-template class std::shared_ptr<PersistentTrackDiscNumber>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackDiscNumber>>;
 void PersistentTrackDiscNumber::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackDiscNumber::deleteObject()
     }
     PersistentIntegerProperty::deleteObject();
 }
-
-

@@ -26,8 +26,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentSortingCriteria;
 
-template class std::shared_ptr<PersistentSortingCriteria>;
-
 template class NxA::Array<std::shared_ptr<PersistentSortingCriteria>>;
 void PersistentSortingCriteria::bind(SourceBinder& parentBinder)
 {
@@ -48,7 +46,7 @@ void PersistentSortingCriteria::faultObject()
         return;
     }
     PersistentObject::faultObject();
-    
+
     manySortingPlaylists->faultRelationship();
 }
 void PersistentSortingCriteria::deleteObject()
@@ -296,5 +294,3 @@ void PersistentSortingCriteria::removeSortingPlaylistsItem(const std::shared_ptr
     manySortingPlaylists->removeObjectWithID(inverse->objectId);
     inverse->criteriaId = {};
 }
-
-

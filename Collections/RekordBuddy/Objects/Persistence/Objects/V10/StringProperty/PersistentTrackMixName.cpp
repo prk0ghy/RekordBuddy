@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackMixName;
 
-template class std::shared_ptr<PersistentTrackMixName>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackMixName>>;
 void PersistentTrackMixName::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentTrackMixName::deleteObject()
     }
     PersistentStringProperty::deleteObject();
 }
-
-

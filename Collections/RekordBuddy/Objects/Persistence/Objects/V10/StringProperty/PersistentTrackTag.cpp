@@ -26,8 +26,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentTrackTag;
 
-template class std::shared_ptr<PersistentTrackTag>;
-
 template class NxA::Array<std::shared_ptr<PersistentTrackTag>>;
 void PersistentTrackTag::bind(SourceBinder& parentBinder)
 {
@@ -44,7 +42,7 @@ void PersistentTrackTag::faultObject()
     }
     PersistentStringProperty::faultObject();
     manyChildrenTags->faultRelationship();
-    
+
 }
 void PersistentTrackTag::deleteObject()
 {
@@ -222,5 +220,3 @@ void PersistentTrackTag::setMaybeParentTag(Optional<std::shared_ptr<PersistentTr
         derel->manyChildrenTags->append(sharedFromThis<PersistentTrackTag>());
     }
 }
-
-

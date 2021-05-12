@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentBooleanProperty;
 
-template class std::shared_ptr<PersistentBooleanProperty>;
-
 template class NxA::Array<std::shared_ptr<PersistentBooleanProperty>>;
 void PersistentBooleanProperty::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentBooleanProperty::deleteObject()
     }
     PersistentIntegerProperty::deleteObject();
 }
-
-

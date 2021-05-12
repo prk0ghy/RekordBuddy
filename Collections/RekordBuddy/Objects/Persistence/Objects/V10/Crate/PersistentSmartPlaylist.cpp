@@ -25,8 +25,6 @@ using namespace NxA::RekordBuddy::CollectionImplementation::V10;
 
 using LocalType = PersistentSmartPlaylist;
 
-template class std::shared_ptr<PersistentSmartPlaylist>;
-
 template class NxA::Array<std::shared_ptr<PersistentSmartPlaylist>>;
 void PersistentSmartPlaylist::bind(SourceBinder& parentBinder)
 {
@@ -47,5 +45,3 @@ void PersistentSmartPlaylist::deleteObject()
     }
     PersistentFilterPlaylist::deleteObject();
 }
-
-
