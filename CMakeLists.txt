@@ -46,7 +46,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif()
 
-# -- This is required at the root of the top CMAkefile in order for testing to work
+# -- This is required at the root of the top CMakefile in order for testing to work
 if(NXA_CMAKE_BUILD_FOR_TESTING)
     enable_testing()
 endif()
