@@ -1,4 +1,4 @@
-/
+//
 //  Rekord Buddy - The future proof music collection tool made by DJs for DJs.
 //  Copyright (C) 2020-2021 Didier Malenfant (didier@rekordbuddy.org)
 //
