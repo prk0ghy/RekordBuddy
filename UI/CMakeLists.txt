@@ -101,8 +101,11 @@ if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
         ${SysConfFramework} ${OpenGLFramework} ${QuartzCoreFramework} ${CarbonFramework}
         ${ApplicationServicesFramework} ${CoreAudioFramework} ${AudioToolboxFramework} ${AVFoundationFramework})
 
-    deploy_framework(RekordBuddy FROM ${NXA_TAGLIB_DIR} NAME "tag") # VERSION 1.17.0)
-    deploy_framework(RekordBuddy FROM "${NXA_BUGSNAG_DIR}" NAME "Bugsnag")
+    if(NOT "${NXA_BUGSNAG_DIR}" STREQUAL "")
+        deploy_framework(RekordBuddy FROM "${NXA_BUGSNAG_DIR}" NAME "Bugsnag")
+    endif()
+
+    deploy_framework(RekordBuddy FROM "${NXA_TAGLIB_DIR}" NAME "tag") # VERSION 1.17.0)
     deploy_framework(RekordBuddy FROM "${NXA_VENDOR_DIR}/Sparkle/${NXA_CMAKE_PLATFORM}" NAME "Sparkle")
 
     deploy_framework(RekordBuddy FROM "${NXA_QT_DIR}/lib" NAME "QtCore" VERSION "5")
