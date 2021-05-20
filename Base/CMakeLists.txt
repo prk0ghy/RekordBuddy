@@ -23,25 +23,12 @@ nxa_project(NxABuildDefines)
 
 file(WRITE ${CMAKE_BINARY_DIR}/nxa_build_defines.h.in
      "\#define NXA_GIT_COMMIT_HASH \"@NXA_CMAKE_GIT_COMMIT_HASH@\"\n"
-     "\#define NXA_GIT_BRANCH \"@NXA_CMAKE_GIT_BRANCH@\"\n"
-     "\#define @NXA_BUGFIX_BUILD_DEFINE@ 1\n"
-     "\#define @NXA_BETA_BUILD_DEFINE@ 1\n")
+     "\#define NXA_GIT_BRANCH \"@NXA_CMAKE_GIT_BRANCH@\"\n")
 
 file(WRITE ${CMAKE_BINARY_DIR}/nxa_build_defines.cmake
      "list(APPEND CMAKE_MODULE_PATH \"${CMAKE_BINARY_DIR}/../cmake\")
       set(NXA_CMAKE_BETA_BUILD ${NXA_CMAKE_BETA_BUILD})
       set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE})
-      include(getversions)
-      if(\"$\{NXA_CMAKE_GIT_BRANCH\}\" STREQUAL \"bugfix\")
-          set(NXA_BUGFIX_BUILD_DEFINE \"NXA_BUGFIX_BUILD\")
-      else()
-          set(NXA_BUGFIX_BUILD_DEFINE \"NXA_NOT_BUGFIX_BUILD\")
-      endif()
-      if(\"$\{NXA_CMAKE_GIT_BRANCH\}\" STREQUAL \"release\")
-          set(NXA_BETA_BUILD_DEFINE \"NXA_NOT_BETA_BUILD\")
-      else()
-          set(NXA_BETA_BUILD_DEFINE \"NXA_BETA_BUILD\")
-      endif()
       configure_file(\${SRC} \${DST} @ONLY)")
 
 add_custom_target(NxABuildDefines ${CMAKE_COMMAND}

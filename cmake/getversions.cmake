@@ -49,22 +49,6 @@ endif()
 
 string(SUBSTRING ${NXA_CMAKE_GIT_COMMIT_HASH} 0 8 NXA_CMAKE_GIT_COMMIT_HASH)
 
-if("${NXA_CMAKE_GIT_BRANCH}" STREQUAL "bugfix")
-    set(NXA_BUGFIX_BUILD_DEFINE "NXA_BUGFIX_BUILD")
-else()
-    set(NXA_BUGFIX_BUILD_DEFINE "NXA_NOT_BUGFIX_BUILD")
-endif()
-
-if("${NXA_CMAKE_GIT_BRANCH}" STREQUAL "release")
-    if(NXA_CMAKE_BETA_BUILD)
-        message(FATAL_ERROR "Should not be building beta builds in this branch.")
-    endif()
-else()
-    if(NOT NXA_CMAKE_BETA_BUILD)
-        message(FATAL_ERROR "Should only be building beta builds in this branch.")
-    endif()
-endif()
-
 # -- Set up our project version number string. This needs to be used everywhere possible for consistency.
 if("${RKB_CMAKE_REVISION_VERSION}" STREQUAL "0")
     set(RKB_CMAKE_VERSION_NUMBER "${RKB_CMAKE_MAJOR_VERSION}.${RKB_CMAKE_MINOR_VERSION}")
