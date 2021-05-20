@@ -95,9 +95,7 @@ if(NOT ${NXA_CMAKE_PLATFORM} STREQUAL "Linux")
         if(NOT ${NXA_CMAKE_PLATFORM} STREQUAL "Linux")
             if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
                 set(NXA_CRASHLOG_IMPLEMENTATION CrashLogMacOSObjectiveC.m)
-            endif()
 
-            if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
                 # -- Bugsnag requires the use of @import
                 target_compile_options(Base PRIVATE -fmodules)
 
