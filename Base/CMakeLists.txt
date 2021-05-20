@@ -126,23 +126,6 @@ if(NOT ${NXA_CMAKE_PLATFORM} STREQUAL "Linux")
     nxa_depends_on_build_defines(Base NxABuildDefines)
 
     if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
-        # -- Bugsnag requires the use of @import
-        target_compile_options(Base PRIVATE -fmodules)
-
-        if("${NXA_BUGSNAG_DIR}" STREQUAL "")
-            message(FATAL_ERROR "NXA_BUGSNAG_DIR is not defined. Must point to your bugsnag build folder install.")
-        endif()
-
-        find_library(BugsnagFramework Bugsnag "${NXA_BUGSNAG_DIR}" NO_DEFAULT_PATH)
-        mark_as_advanced(BugsnagFramework)
-        target_link_libraries(Base PRIVATE ${BugsnagFramework})
-
-        if (NOT BugsnagFramework)
-            message(FATAL_ERROR "BugsnagFramework required, but not found!")
-        endif()
-
-        message(STATUS "Bugsnag Framework found at ${BugsnagFramework}.")
-
         find_library(COCOA_LIBRARY Cocoa)
         find_library(IOKIT_LIBRARY IOKit)
         target_link_libraries(Base PUBLIC ${NXA_TESTING_FRAMEWORK_LIBS} ${COCOA_LIBRARY} ${IOKIT_LIBRARY})
