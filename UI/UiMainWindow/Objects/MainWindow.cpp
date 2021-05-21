@@ -64,7 +64,6 @@
 
 #include <future>
 
-#include "nxa_build_defines.h"
 #include "rkb_build_defines.h"
 
 #include "ui_MainWindow.h"

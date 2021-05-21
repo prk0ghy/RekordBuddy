@@ -20,8 +20,6 @@
 #include <Base/String.hpp>
 #include <Base/Time.hpp>
 
-#include "nxa_build_defines.h"
-
 #include <iostream>
 #include <iosfwd>
 #include <ctime>

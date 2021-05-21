@@ -21,8 +21,6 @@
 #include <Base/CrashLog.hpp>
 #include <Base/Types.hpp>
 
-#include "nxa_build_defines.h"
-
 #include <cstdio>
 #include <csignal>
 #include <cstdarg>

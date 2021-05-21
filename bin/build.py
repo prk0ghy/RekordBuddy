@@ -58,11 +58,12 @@ class Context:
     build_app = False
     package_build = False
 
+    local_repo_is_dirty = False
+
     beta_build = False
     app_name_postfix = ''
 
     build_version_number = ''
-    build_version_number_without_hash = ''
     symbols_version_number = ''
     git_tag_for_build = ''
 
@@ -191,7 +192,7 @@ def check_local_dir_is_git_repo():
         die('Working directory is not a git repo.')
 
 
-def check_local_git_clean():
+def check_local_git_clean(context):
     """Check that there's no changes on local working tree or index."""
     require('git')
 
@@ -204,37 +205,53 @@ def check_local_git_clean():
         if not result[0]:
             die('Can\'t run git ls-files.')
 
-        die(f'Some files are checked out.\n{result[1]}')
+        if not context.run_in_dev_mode:
+            die(f'Some files are checked out.\n{result[1]}')
+        else:
+            return False
 
     result = run_shell('git ls-files --others --exclude-standard')
     if not result[0]:
         die('Can\'t run git ls-files.')
 
     if result[1] != '':
-        die(f'Some files are untracked.\n{result[1]}')
+        if not context.run_in_dev_mode:
+            die(f'Some files are untracked.\n{result[1]}')
+        else:
+            return False
 
     result = run_shell('git update-index -q --ignore-submodules --refresh > /dev/null')
     if not result[0]:
         die('Can\'t run git update-index.')
 
     if result[1] != '':
-        die(f'Unstaged changes in working tree.\n{result[1]}')
+        if not context.run_in_dev_mode:
+            die(f'Unstaged changes in working tree.\n{result[1]}')
+        else:
+            return False
 
     result = run_shell('git diff-files -q --ignore-submodules -- > /dev/null')
     if not result[0]:
         die('Can\'t run git diff-files.')
 
     if result[1] != '':
-        die(f'Uncommitted changes in index.\n{result[1]}')
+        if not context.run_in_dev_mode:
+            die(f'Uncommitted changes in index.\n{result[1]}')
+        else:
+            return False
 
     result = run_shell('git diff-index --quiet HEAD -- > /dev/null')
     if not result[0]:
         die('Can\'t run git diff-index.')
 
     if result[1] != '':
-        die('Uncommitted changes in index.')
+        if not context.run_in_dev_mode:
+            die('Uncommitted changes in index.')
+        else:
+            return False
 
     ok('Working tree is clean.')
+    return True
 
 
 def setup_context(context):
@@ -242,6 +259,8 @@ def setup_context(context):
     require('git')
 
     check_local_dir_is_git_repo()
+    if not check_local_git_clean(context):
+        context.local_repo_is_dirty = True
 
     ok(f'Building project in {context.project_directory}')
 
@@ -264,6 +283,10 @@ def setup_context(context):
         die('Can\'t get commit hash.')
 
     commit_hash = result[1][:8]
+
+    if context.local_repo_is_dirty:
+        commit_hash = commit_hash + '-dirty'
+
     ok(f'Commit hash is {commit_hash}')
 
     if context.beta_build:
@@ -284,30 +307,21 @@ def setup_context(context):
     if revision_version_number != '0':
         build_version_number = f'{build_version_number}.{revision_version_number}'
 
-    symbols_version_number = build_version_number
     git_tag_for_build = f'v{build_version_number}'
 
-    if context.beta_build:
-        beta_version_number = get_version_number_from_file_in_directory('beta', version_files_directory)
-        ok(f'Beta version number is {beta_version_number}')
-
-        build_version_number = f'{build_version_number}b{beta_version_number}'
-        symbols_version_number = f'{symbols_version_number}.b{beta_version_number}'
+    build_number = get_version_number_from_file_in_directory('build', version_files_directory)
+    build_version_number = f'{build_version_number}({build_number}) ({commit_hash})'
+    symbols_version_number = build_version_number
 
     if context.codesign_identity != '':
         if context.provider_short_name == '' or context.appleid_email == '':
             die('Code signing requires also the ASC provider short name and an Apple ID username/email.')
 
-    build_version_number_without_hash = build_version_number
-    build_version_number = f'{build_version_number}({commit_hash})'
-
-    ok(f'Build number is {build_version_number}')
-    ok(f'Build number without hash is {build_version_number_without_hash}')
+    ok(f'Build version number is {build_version_number}')
     ok(f'Symbols number is {symbols_version_number}')
     ok(f'Git tag for build is {git_tag_for_build}')
 
     context.build_version_number = build_version_number
-    context.build_version_number_without_hash = build_version_number_without_hash
     context.symbols_version_number = symbols_version_number
     context.git_tag_for_build = git_tag_for_build
 
@@ -366,9 +380,6 @@ def check_requirements(context):
         ok(f'Packaging build {context.git_tag_for_build}')
 
         context.cmake_build_arguments += ' -DNXA_CMAKE_THIS_IS_A_PRODUCTION_BUILD=1'
-
-    if not context.run_in_dev_mode:
-        check_local_git_clean()
 
 
 def get_build_path(context):
@@ -618,9 +629,9 @@ def main(argv):
         die('This build script is only for macOS at the moment.')
 
     context = Context()
-    setup_context(context)
 
     parse_arguments(argv, context)
+    setup_context(context)
 
     check_requirements(context)
 

@@ -44,7 +44,6 @@
 #include <Base/FilePath.hpp>
 #include <Base/Threading.hpp>
 
-#include "nxa_build_defines.h"
 #include "rkb_build_defines.h"
 
 #if defined(NXA_BETA_BUILD)
@@ -209,7 +208,7 @@ int main(int argc, char* argv[])
     }
 #endif
 
-    Rekordbox::setCurrentRekordBuddyVersion(String::stringWithFormat("%s(%s)", RKB_VERSION_STRING, NXA_GIT_COMMIT_HASH));
+    Rekordbox::setCurrentRekordBuddyVersion(String::stringWithFormat("%s (%s)", RKB_VERSION_STRING, RKB_GIT_COMMIT_HASH));
 
     auto osVersionString = Platform::osVersion();
     auto components = osVersionString.splitBySeparator('.');

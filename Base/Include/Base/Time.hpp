@@ -23,8 +23,6 @@
 #include <Base/Duration.hpp>
 #include <Base/Pointers.hpp>
 
-#include "nxa_build_defines.h"
-
 namespace NxA {
 
 // -- Public Interface

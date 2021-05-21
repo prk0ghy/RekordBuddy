@@ -18,8 +18,6 @@
 
 #import "Base/CrashLogMacOSObjectiveC.h"
 
-#include "nxa_build_defines.h"
-
 @import Bugsnag;
 
 // -- Implementation

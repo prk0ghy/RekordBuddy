@@ -27,8 +27,6 @@
 #include <Base/Threading.hpp>
 #include <Base/Time.hpp>
 
-#include "nxa_build_defines.h"
-
 #include <windows.h>
 #include <cwctype>
 #include <psapi.h>

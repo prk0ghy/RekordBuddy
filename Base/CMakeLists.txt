@@ -18,26 +18,6 @@
 
 cmake_minimum_required(VERSION 3.13)
 
-# -- This project allows us to output some defines that get updated when needed by triggering a re-config from cmake.
-nxa_project(NxABuildDefines)
-
-file(WRITE ${CMAKE_BINARY_DIR}/nxa_build_defines.h.in
-     "\#define NXA_GIT_COMMIT_HASH \"@NXA_CMAKE_GIT_COMMIT_HASH@\"\n"
-     "\#define NXA_GIT_BRANCH \"@NXA_CMAKE_GIT_BRANCH@\"\n")
-
-file(WRITE ${CMAKE_BINARY_DIR}/nxa_build_defines.cmake
-     "list(APPEND CMAKE_MODULE_PATH \"${CMAKE_BINARY_DIR}/../cmake\")
-      set(NXA_CMAKE_BETA_BUILD ${NXA_CMAKE_BETA_BUILD})
-      set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE})
-      configure_file(\${SRC} \${DST} @ONLY)")
-
-add_custom_target(NxABuildDefines ${CMAKE_COMMAND}
-                  -D SRC=${CMAKE_BINARY_DIR}/nxa_build_defines.h.in
-                  -D DST=${CMAKE_BINARY_DIR}/nxa_build_defines.h
-                  -P ${CMAKE_BINARY_DIR}/nxa_build_defines.cmake)
-
-nxa_project_end("NO_EXTRA_COMPILE_DEFINITIONS")
-
 set(SOURCE_FILES
     ${NXA_VENDOR_DIR}/utf8rewind/source/utf8rewind.c
     ${NXA_VENDOR_DIR}/utf8rewind/source/unicodedatabase.c
@@ -122,8 +102,6 @@ if(NOT ${NXA_CMAKE_PLATFORM} STREQUAL "Linux")
                                PUBLIC Include ${NXA_VENDOR_DIR} ${NXA_VENDOR_DIR}/json/single_include)
 
     target_link_libraries(Base PUBLIC ${NXA_TESTING_FRAMEWORK_LIBS})
-
-    nxa_depends_on_build_defines(Base NxABuildDefines)
 
     if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
         find_library(COCOA_LIBRARY Cocoa)

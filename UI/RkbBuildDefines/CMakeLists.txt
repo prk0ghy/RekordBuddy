@@ -25,10 +25,10 @@ nxa_project(RkbBuildDefines)
 # -- Crash Symbols and Receipt Activation version strings below must be compatible with
 # -- being added to a URL, not all characters are supported.
 file(WRITE ${CMAKE_BINARY_DIR}/rkb_build_defines.h.in
+     "\#define RKB_GIT_COMMIT_HASH \"@RKB_CMAKE_GIT_COMMIT_HASH@\"\n"
      "\#define RKB_VERSION_STRING \"@RKB_CMAKE_VERSION_STRING@\"\n"
      "\#define RKB_VERSION_CRASHLOG_STRING \"@RKB_CMAKE_VERSION_CRASHLOG_STRING@\"\n"
      "\#define RKB_CRASH_SYMBOLS_VERSION_STRING \"@RKB_CMAKE_SYMBOLS_VERSION_STRING@\"\n"
-     "\#define RKB_RECEIPT_APPLICATION_VERSION_STRING \"@RKB_CMAKE_BUNDLE_VERSION@\"\n"
      "\#define RKB_MAJOR_VERSION \"@RKB_CMAKE_MAJOR_VERSION@\"\n"
      "\#define RKB_MINOR_VERSION \"@RKB_CMAKE_MINOR_VERSION@\"\n")
 

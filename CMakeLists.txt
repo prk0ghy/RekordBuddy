@@ -580,7 +580,7 @@ if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
     endif()
 endif()
 
-message(STATUS "Version being built is ${RKB_CMAKE_VERSION_STRING}(${NXA_CMAKE_GIT_COMMIT_HASH}).")
+message(STATUS "Version being built is ${RKB_CMAKE_VERSION_STRING}.")
 message(STATUS "Debug build symbol version is ${RKB_CMAKE_SYMBOLS_VERSION_STRING}.")
 
 # -- Compilation settings based on the platform

@@ -20,7 +20,6 @@
 
 #include <Base/Duration.hpp>
 
-#include "nxa_build_defines.h"
 #include "rkb_build_defines.h"
 
 #define dec QT_dec
@@ -50,7 +49,7 @@ AboutDialog::AboutDialog(WorkQueue& withWorkQueue, QWidget* parent, Mode withMod
 
     // -- Populate version number of about dialog with version of program.
     this->p_ui->versionLabel->setAttribute(Qt::WA_TranslucentBackground);
-    this->p_ui->versionLabel->setText(QString{ QObject::tr("v%1(%2)-free") }.arg(RKB_VERSION_STRING).arg(NXA_GIT_COMMIT_HASH));
+    this->p_ui->versionLabel->setText(QString{ QObject::tr("v%1 (%2)") }.arg(RKB_VERSION_STRING).arg(RKB_GIT_COMMIT_HASH));
 
 #if !defined(NXA_BETA_BUILD)
     this->p_ui->topWarningTape->setVisible(false);
