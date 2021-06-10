@@ -33,7 +33,7 @@ file(WRITE ${CMAKE_BINARY_DIR}/rkb_build_defines.h.in
      "\#define RKB_MINOR_VERSION \"@RKB_CMAKE_MINOR_VERSION@\"\n")
 
 file(WRITE ${CMAKE_BINARY_DIR}/rkb_build_defines.cmake
-     "list(APPEND CMAKE_MODULE_PATH \"${CMAKE_BINARY_DIR}/../cmake\")
+     "list(APPEND CMAKE_MODULE_PATH \"${CMAKE_BINARY_DIR}/../../cmake\")
       set(NXA_CMAKE_BETA_BUILD ${NXA_CMAKE_BETA_BUILD})
       set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE})
       include(getversions)

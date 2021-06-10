@@ -394,7 +394,7 @@ def get_build_path(context):
     else:
         beta_build_string = ''
 
-    context.build_path = os.path.join(context.project_directory, 'cmake-buildscript-' + build_type + beta_build_string)
+    context.build_path = os.path.join(context.project_directory, 'builds', 'cmake-buildscript-' + build_type + beta_build_string)
     ok(f'Build path {context.build_path}')
 
 
@@ -646,7 +646,7 @@ def main(argv):
         if not result[0]:
             die('Can\'t create build directory.')
 
-        result = run_shell(f'cd {context.build_path} && cmake .. {context.cmake_build_arguments} -DCMAKE_BUILD_TYPE={context.build_type}', False)
+        result = run_shell(f'cd {context.build_path} && cmake ../.. {context.cmake_build_arguments} -DCMAKE_BUILD_TYPE={context.build_type}', False)
         if not result[0]:
             die(f'Error configuring CMake.')
 
