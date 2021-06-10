@@ -267,7 +267,7 @@ def setup_context(context):
     ok(f'Beta build is {context.beta_build}')
     ok(f'Debug build is {context.debug_build}')
 
-    version_files_directory = os.path.join(context.project_directory, 'cmake', 'version')
+    version_files_directory = os.path.join(context.project_directory, 'Versionning')
 
     major_version_number = get_version_number_from_file_in_directory('major', version_files_directory)
     ok(f'Major version number is {major_version_number}')

@@ -92,28 +92,28 @@ function export_paths {
 }
 
 function export_versions {
-  if [ ! -f "${NXA_SOURCE_PATH}/cmake/version/major" ]; then
+  if [ ! -f "${NXA_SOURCE_PATH}/Versionning/major" ]; then
     die "Could not find a major version number for this build."
   else
-    export NXA_MAJOR_VERSION=$(cat "${NXA_SOURCE_PATH}/cmake/version/major")
+    export NXA_MAJOR_VERSION=$(cat "${NXA_SOURCE_PATH}/Versionning/major")
   fi
 
-  if [ ! -f "${NXA_SOURCE_PATH}/cmake/version/minor" ]; then
+  if [ ! -f "${NXA_SOURCE_PATH}/Versionning/minor" ]; then
     die "Could not find a minor version number for this build."
   else
-    export NXA_MINOR_VERSION=$(cat "${NXA_SOURCE_PATH}/cmake/version/minor")
+    export NXA_MINOR_VERSION=$(cat "${NXA_SOURCE_PATH}/Versionning/minor")
   fi
 
-  if [ ! -f "${NXA_SOURCE_PATH}/cmake/version/revision" ]; then
+  if [ ! -f "${NXA_SOURCE_PATH}/Versionning/revision" ]; then
     die "Could not find a revision version number for this build."
   else
-    export NXA_REVISION_VERSION=$(cat "${NXA_SOURCE_PATH}/cmake/version/revision")
+    export NXA_REVISION_VERSION=$(cat "${NXA_SOURCE_PATH}/Versionning/revision")
   fi
 
-  if [ ! -f "${NXA_SOURCE_PATH}/cmake/version/build" ]; then
+  if [ ! -f "${NXA_SOURCE_PATH}/Versionning/build" ]; then
     die "Could not find a build version number for this build."
   else
-    export NXA_BUILD_NUMBER=$(cat "${NXA_SOURCE_PATH}/cmake/version/build")
+    export NXA_BUILD_NUMBER=$(cat "${NXA_SOURCE_PATH}/Versionning/build")
   fi
 
   if [ $NXA_REVISION_VERSION == 0 ]; then
@@ -168,16 +168,16 @@ if [ $NO_COMMIT_NEEDED == 0 ]; then
 fi
 
 for reset in ${resets[*]}; do
-    rm "$NXA_SOURCE_PATH/cmake/version/$reset"
-    echo "0" > "$NXA_SOURCE_PATH/cmake/version/$reset"
+    rm "$NXA_SOURCE_PATH/Versionning/$reset"
+    echo "0" > "$NXA_SOURCE_PATH/Versionning/$reset"
 done
 
 for increase in ${increases[*]}; do
-    old_version=$(cat "${NXA_SOURCE_PATH}/cmake/version/$increase")
+    old_version=$(cat "${NXA_SOURCE_PATH}/Versionning/$increase")
     new_version=$(($old_version + 1))
 
-    rm "$NXA_SOURCE_PATH/cmake/version/$increase"
-    echo $new_version > "$NXA_SOURCE_PATH/cmake/version/$increase"
+    rm "$NXA_SOURCE_PATH/Versionning/$increase"
+    echo $new_version > "$NXA_SOURCE_PATH/Versionning/$increase"
 done
 
 export_versions

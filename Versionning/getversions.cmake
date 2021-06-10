@@ -91,7 +91,7 @@ endif()
 set(RKB_CMAKE_GIT_COMMIT_HASH "${RKB_CMAKE_GIT_COMMIT_HASH}${RKB_CMAKE_LOCAL_REPO_DIRTY}")
 
 # -- Then we read our build numbers from the version files
-execute_process(COMMAND cat version/major
+execute_process(COMMAND cat major
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
                 OUTPUT_VARIABLE RKB_CMAKE_MAJOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -100,7 +100,7 @@ if ("${RKB_CMAKE_MAJOR_VERSION}" STREQUAL "")
     message(FATAL_ERROR "Couldn't read our major version number.")
 endif()
 
-execute_process(COMMAND cat version/minor
+execute_process(COMMAND cat minor
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
                 OUTPUT_VARIABLE RKB_CMAKE_MINOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -109,7 +109,7 @@ if ("${RKB_CMAKE_MINOR_VERSION}" STREQUAL "")
     message(FATAL_ERROR "Couldn't read our minor version number.")
 endif()
 
-execute_process(COMMAND cat version/revision
+execute_process(COMMAND cat revision
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
                 OUTPUT_VARIABLE RKB_CMAKE_REVISION_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -118,7 +118,7 @@ if ("${RKB_CMAKE_REVISION_VERSION}" STREQUAL "")
     message(FATAL_ERROR "Couldn't read our revision version number.")
 endif()
 
-execute_process(COMMAND cat version/build
+execute_process(COMMAND cat build
                 WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
                 OUTPUT_VARIABLE RKB_CMAKE_BUILD_NUMBER
                 OUTPUT_STRIP_TRAILING_WHITESPACE)

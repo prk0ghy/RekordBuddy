@@ -24,7 +24,7 @@ project(RekordBuddyWorkspace)
 # -- Special policies
 
 # -- Pull in useful boilerplate and some external settings
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Versionning")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
 set(NXA_VENDOR_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Vendor)
