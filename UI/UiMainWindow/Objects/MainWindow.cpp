@@ -89,7 +89,7 @@ static std::unique_ptr<Updater> getAutoUpdater()
     String beta;
 #endif
 
-    auto url = String::stringWithFormat("https://rekordbuddy.org/updates/%s.%s%s/Appcast.xml",
+    auto url = String::stringWithFormat("https://updates.rekordbuddy.org/updates/%s.%s%s/Appcast.xml",
                                         RKB_MAJOR_VERSION,
                                         RKB_MINOR_VERSION,
                                         beta.asUTF8());
