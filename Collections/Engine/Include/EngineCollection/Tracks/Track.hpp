@@ -98,9 +98,9 @@ public:
     }
     FilePath relativeFilePath() const override
     {
-#if defined(NXA_BUGSNAG_APP_ID)
         auto filePath = this->absoluteFilePath();
         auto maybeRelativePath = filePath.maybeRelativeToVolume();
+#if defined(NXA_BUGSNAG_APP_ID)
         NXA_ASSERT_TRUE_WITH_BLOCK(maybeRelativePath.isValid(), [&filePath]() {
             CrashLog::addUserInfoWithKey(filePath.asEncodedString(), "filepath");
             CrashLog::addUserInfoWithKey(Volume{ filePath }.asFilePath().asEncodedString(), "volume");
