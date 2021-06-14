@@ -26,7 +26,18 @@ using namespace NxA::Rekordbox;
 
 Optional<Shared<MutableTrack>> MutableTrack::maybeTrackWithNodeInCollection(MutableXMLNode track, Pointer<MutableCollection> inCollection, const Protected&)
 {
-    // -- We have to make sure this track has a valid absolute path on a real volume
+    auto maybeLocation = track.maybeStringValueForAttributeNamed("Location");
+    if (!maybeLocation.isValid()) {
+        return nothing;
+    }
+
+    // -- We have to make sure this track is not in the cloud.
+    auto location = maybeLocation->asStringByRemovingPercentEncoding();
+    if (!location.hasPrefix("file://localhost/")) {
+        return nothing;
+    }
+
+    // -- We have to make sure this track has a valid absolute path on a real volume.
     auto newTrack = Shared<MutableTrack>::with(track, inCollection, MutableTrack::p_isProtected);
     if (!newTrack->absoluteFilePath().maybeRelativeToVolume().isValid()) {
         return nothing;
