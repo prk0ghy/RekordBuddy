@@ -33,6 +33,8 @@
     config.apiKey = apiKey;
 #if defined(NXA_BETA_BUILD)
     config.releaseStage = @"beta";
+#else
+    config.releaseStage = @"production";
 #endif
     config.appVersion = appVersion;
 
