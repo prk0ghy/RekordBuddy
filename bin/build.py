@@ -478,13 +478,6 @@ def package_build(context):
 
     ok('Symbols exported to dSYM file.')
 
-    if not context.run_in_dev_mode and context.bugsnag_app_id != '':
-        result = run_shell_script(f'upload-bugsnag-symbols.sh -v --api-key {context.bugsnag_app_id} "{build_zipped_dsym_path}"', context)
-        if not result[0]:
-            die(f'Error uploading symboles to bugsnag.\n{result[1]}')
-
-        ok("Symbols uploaded to Bugsnag.")
-
     uuid_text_file = os.path.join(packaged_app_folder, context.build_version_number + ' UUID.txt')
     result = run_shell(f'dwarfdump -u "{build_dsym_path}" > "{uuid_text_file}"')
     if not result[0]:
@@ -536,29 +529,39 @@ def package_build(context):
 
         ok('App verified by Gatekeeper.')
 
-        # -- Prepare the Sparkle package using the signed .app
-        result = run_shell(f'ditto -c -k --sequesterRsrc --keepParent "{build_app_path}" "{notarize_package_path}"')
+    # -- Prepare the Sparkle package using the signed .app
+    result = run_shell(f'ditto -c -k --sequesterRsrc --keepParent "{build_app_path}" "{notarize_package_path}"')
+    if not result[0]:
+        die(f'Error zipping up package for updater.\n{result[1]}')
+
+    sparkle_zip_size = os.path.getsize(notarize_package_path)
+
+    ok('Sparkle package created.')
+
+    # -- Create a DMG installer (this requires the 'dmgcanvas' command line tool to be installed by DMGCanvas)
+    dmg_package_path = os.path.join(packaged_app_folder, app_name + context.app_name_postfix + '.dmg')
+    result = run_shell(f'dmgcanvas "{context.project_directory}/Installer/macOS/Rekord Buddy.dmgCanvas" "{dmg_package_path}" -setFilePath "{app_name}" "{build_app_path}"',
+                       False)
+    if not result[0]:
+        die('Error creating installer.')
+
+    # -- Upload the symbols to bugsnag
+    ok(f'upload-bugsnag-symbols.sh -v --api-key {context.bugsnag_app_id} "{build_zipped_dsym_path}"')
+
+    if not context.run_in_dev_mode and context.bugsnag_app_id != '':
+        result = run_shell_script(f'upload-bugsnag-symbols.sh -v --api-key {context.bugsnag_app_id} "{build_zipped_dsym_path}"', context)
         if not result[0]:
-            die(f'Error zipping up package for updater.\n{result[1]}')
+            die(f'Error uploading symboles to bugsnag.\n{result[1]}')
 
-        sparkle_zip_size = os.path.getsize(notarize_package_path)
+        ok("Symbols uploaded to Bugsnag.")
 
-        ok('Sparkle package created.')
+    final_output_folder = os.path.join(os.path.expanduser('~'), 'Desktop', context.build_version_number)
+    if os.path.exists(final_output_folder):
+        shutil.rmtree(final_output_folder)
 
-        # -- Create a DMG installer (this requires the 'dmgcanvas' command line tool to be installed by DMGCanvas)
-        dmg_package_path = os.path.join(packaged_app_folder, app_name + context.app_name_postfix + '.dmg')
-        result = run_shell(f'dmgcanvas "{context.project_directory}/Installer/macOS/Rekord Buddy.dmgCanvas" "{dmg_package_path}" -setFilePath "{app_name}" "{build_app_path}"',
-                           False)
-        if not result[0]:
-            die('Error creating installer.')
+    shutil.move(packaged_app_folder, final_output_folder)
 
-        final_output_folder = os.path.join(os.path.expanduser('~'), 'Desktop', context.build_version_number)
-        if os.path.exists(final_output_folder):
-            shutil.rmtree(final_output_folder)
-
-        shutil.move(packaged_app_folder, final_output_folder)
-
-        ok(f'SUCCESS: Succesfully packaged Rekord Buddy {context.build_version_number} (Sparkle Package Size: {sparkle_zip_size}).')
+    ok(f'SUCCESS: Succesfully packaged Rekord Buddy {context.build_version_number} (Sparkle Package Size: {sparkle_zip_size}).')
 
 
 def lock_build():
