@@ -282,7 +282,7 @@ def setup_context(context):
     if not result[0]:
         die('Can\'t get commit hash.')
 
-    commit_hash = result[1][:8]
+    commit_hash = commit_hash_for_symbols = result[1][:8]
 
     if context.local_repo_is_dirty:
         commit_hash = commit_hash + '-dirty'
@@ -310,15 +310,15 @@ def setup_context(context):
     git_tag_for_build = f'v{build_version_number}'
 
     build_number = get_version_number_from_file_in_directory('build', version_files_directory)
+    symbols_version_number = f'{major_version_number}.{minor_version_number}.{revision_version_number}.{build_number}.{commit_hash_for_symbols}'
     build_version_number = f'{build_version_number}({build_number}) ({commit_hash})'
-    symbols_version_number = build_version_number
 
     if context.codesign_identity != '':
         if context.provider_short_name == '' or context.appleid_email == '':
             die('Code signing requires also the ASC provider short name and an Apple ID username/email.')
 
     ok(f'Build version number is {build_version_number}')
-    ok(f'Symbols number is {symbols_version_number}')
+    ok(f'Symbols version number is {symbols_version_number}')
     ok(f'Git tag for build is {git_tag_for_build}')
 
     context.build_version_number = build_version_number
@@ -465,8 +465,8 @@ def package_build(context):
     shutil.copytree(source_app_path, build_app_path, symlinks=True)
 
     # -- Before code signing, get symbols for uploading; and remove debug symbols from the binary.
-    build_dsym_path = os.path.join(packaged_app_folder, context.build_version_number + '.dSYM')
-    build_zipped_dsym_path = os.path.join(packaged_app_folder, context.build_version_number + ' Symbols.zip')
+    build_dsym_path = os.path.join(packaged_app_folder, context.symbols_version_number + '.dSYM')
+    build_zipped_dsym_path = os.path.join(packaged_app_folder, context.symbols_version_number + ' Symbols.zip')
 
     result = run_shell(f'dsymutil "{build_binary_path}" -o "{build_dsym_path}"')
     if not result[0]:

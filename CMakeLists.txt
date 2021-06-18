@@ -581,7 +581,7 @@ if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 message(STATUS "Version being built is ${RKB_CMAKE_VERSION_STRING}.")
-message(STATUS "Debug build symbol version is ${RKB_CMAKE_SYMBOLS_VERSION_STRING}.")
+message(STATUS "Symbol version number is ${RKB_CMAKE_SYMBOLS_VERSION_STRING}.")
 
 # -- Compilation settings based on the platform
 if(${NXA_CMAKE_PLATFORM} STREQUAL "macOS")
