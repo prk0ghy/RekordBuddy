@@ -118,7 +118,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="betaPreviewUnstableVertical" stretch="1,1,1">
+      <layout class="QVBoxLayout" name="betaPreviewUnstableVertical" stretch="1,1,0">
        <property name="spacing">
         <number>9</number>
        </property>
@@ -161,7 +161,7 @@
        <item>
         <widget class="QLabel" name="earlyPreview">
          <property name="text">
-          <string>This is not an early preview of Rekord Buddy. The purpose of this beta build is to test functionality and report bugs to support. Many features will be missing, incomplete, or unusable. Some UI might be temporary. </string>
+          <string>The purpose of this beta build is to test functionality and report bugs to support. Many features will be missing, incomplete, or unusable.  Some UI might be temporary. </string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -175,23 +175,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="treatUnstable">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="text">
-          <string>You should treat this build as unstable and likely to wipe out your entire disk or music collection.</string>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>5</width>
+           <height>13</height>
+          </size>
          </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
+        </spacer>
        </item>
       </layout>
      </item>
@@ -221,13 +218,12 @@
       </size>
      </property>
      <property name="text">
-      <string>This means:
+      <string>
+This means:
    - Have complete backups of your entire system at all times before using this build.
-   - Do not use this build in public settings or for any other reason than testing it.
-   - Do not post screenshots or discuss this build publicly outside of the beta forums.
-   - If you find a 'Something wonderful...' issue, make sure you keep on trying future builds.
-   - Report any issues on public beta forums at https://forums.rekordbuddy.org
-</string>
+   - Do not use this build in for your regular workflow or for any other reason than testing it.
+   - If you find a 'Something wonderful...' issue,  make sure you keep on trying future builds.
+   </string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>

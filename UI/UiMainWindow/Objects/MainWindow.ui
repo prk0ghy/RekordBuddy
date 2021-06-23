@@ -885,7 +885,7 @@
      <x>0</x>
      <y>0</y>
      <width>1111</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -903,9 +903,7 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionGetting_Started"/>
-    <addaction name="actionShow_Online_Manual"/>
-    <addaction name="actionShow_Online_Support"/>
+    <addaction name="actionShow_Official_Website"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
@@ -919,21 +917,6 @@
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
-   </property>
-  </action>
-  <action name="actionShow_Online_Manual">
-   <property name="text">
-    <string>Online Manual</string>
-   </property>
-  </action>
-  <action name="actionShow_Online_FAQ">
-   <property name="text">
-    <string>Browse FAQ</string>
-   </property>
-  </action>
-  <action name="actionShow_Online_Support">
-   <property name="text">
-    <string>Support Forums</string>
    </property>
   </action>
   <action name="actionArtwork_View">
@@ -998,22 +981,9 @@
     <string>Check for Updates...</string>
    </property>
   </action>
-  <action name="actionShow_Follow_Damien">
+  <action name="actionShow_Official_Website">
    <property name="text">
-    <string>Listen to Damien Plays Records</string>
-   </property>
-   <property name="toolTip">
-    <string>Follow Damien</string>
-   </property>
-  </action>
-  <action name="actionGetting_Started">
-   <property name="text">
-    <string>Getting Started</string>
-   </property>
-  </action>
-  <action name="actionShow_Message_Of_The_Day">
-   <property name="text">
-    <string>Show Message Of The Day</string>
+    <string>Official Website</string>
    </property>
   </action>
  </widget>

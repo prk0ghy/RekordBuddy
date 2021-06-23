@@ -77,9 +77,7 @@ private slots:
     void editAlbumTrackSelection();
     void showAboutDialog();
     void showPreferencesWindow();
-    void showGettingStarted();
-    void showOnlineManual();
-    void showOnlineSupport();
+    void showOfficialWebsite();
     void setViewModeArtwork();
     void setViewModeDetails();
     void checkForUpdates();

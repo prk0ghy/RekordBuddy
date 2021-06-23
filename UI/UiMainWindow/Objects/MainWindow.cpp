@@ -132,9 +132,7 @@ MainWindow::MainWindow(WorkQueue& withWorkQueue, QWidget* parent) : QMainWindow{
     connect(this->ui->actionTrack_View, &QAction::triggered, this, &MainWindow::setViewModeDetails);
     connect(this->ui->actionCheck_for_Updates, &QAction::triggered, this, &MainWindow::checkForUpdates);
     connect(this->ui->actionPreferences, &QAction::triggered, this, &MainWindow::showPreferencesWindow);
-    connect(this->ui->actionGetting_Started, &QAction::triggered, this, &MainWindow::showGettingStarted);
-    connect(this->ui->actionShow_Online_Manual, &QAction::triggered, this, &MainWindow::showOnlineManual);
-    connect(this->ui->actionShow_Online_Support, &QAction::triggered, this, &MainWindow::showOnlineSupport);
+    connect(this->ui->actionShow_Official_Website, &QAction::triggered, this, &MainWindow::showOfficialWebsite);
 
     connect(&this->workQueue, &WorkQueue::didBeginWorking, this, &MainWindow::didBeginWorking);
     connect(&this->workQueue, &WorkQueue::didPauseWorking, this, &MainWindow::didPauseWorking);
@@ -687,19 +685,9 @@ void MainWindow::showPreferencesWindow()
     });
 }
 
-void MainWindow::showGettingStarted()
+void MainWindow::showOfficialWebsite()
 {
-    QDesktopServices::openUrl(QUrl{ QString{ "https://forums.rekordbuddy.org/t/how-do-i-get-started-with-rekord-buddy/141" } });
-}
-
-void MainWindow::showOnlineManual()
-{
-    QDesktopServices::openUrl(QUrl{ QString{ "https://docs.rekordbuddy.org/v/2.2/" } });
-}
-
-void MainWindow::showOnlineSupport()
-{
-    QDesktopServices::openUrl(QUrl{ QString{ "https://forums.rekordbuddy.org/c/rekord-buddy/support" } });
+    QDesktopServices::openUrl(QUrl{ QString{ "https://rekordbuddy.org" } });
 }
 
 void MainWindow::setViewModeArtwork()
@@ -973,8 +961,8 @@ void MainWindow::showResetCollectionDialog(CollectionOpenError error)
                                                error.volume().name().asUTF8());
     auto moreInfoText = "Database format for Rekord Buddy has changed. "
                         "By resetting the database, you will loose all your Rekord Buddy information.\n\n"
-                        "If want to retain your old Rekord Buddy collection, do not use this build and wait for a future build allowing you to migrate your data.\n\n"
-                        "More info at https://forums.rekordbuddy.org."_String;
+                        "If want to retain your old Rekord Buddy collection, do not use this build and use a migration build to copy your data.\n\n"
+                        "More info at https://rekordbuddy.org."_String;
     alert.setText(QObject::tr(""), fromString(dialogText), fromString(moreInfoText));
     alert.setButtonLayout(QObject::tr("Reset Database"),
                           rekordBuddyCollectionOnHomeVolume ? QObject::tr("Exit") : QObject::tr("Ignore It"));
