@@ -83,7 +83,7 @@ static std::unique_ptr<Updater> getAutoUpdater()
 {
     // -- Bug fix builds need to still update when a new release build is posted.
     // -- Beta builds only update when a new beta build is posted.
-#if defined(NXA_BETA_BUILD) && !defined(NXA_BUGFIX_BUILD)
+#if defined(NXA_BETA_BUILD)
     String beta{ "beta" };
 #else
     String beta;
