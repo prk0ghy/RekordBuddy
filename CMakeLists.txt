@@ -572,6 +572,10 @@ else()
     set(NXA_STATUS_OR_FATAL STATUS)
 endif()
 
+if(NXA_CMAKE_BETA_BUILD)
+    add_definitions(-DNXA_BETA_BUILD)
+endif()
+
 if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
     if(NXA_CMAKE_RELEASE_BUILD_FOR_DEBUGGING)
         add_definitions(-DNXA_RELEASE_BUILD_FOR_DEBUGGING)
