@@ -49,7 +49,9 @@ AboutDialog::AboutDialog(WorkQueue& withWorkQueue, QWidget* parent, Mode withMod
 
     // -- Populate version number of about dialog with version of program.
     this->p_ui->versionLabel->setAttribute(Qt::WA_TranslucentBackground);
-    this->p_ui->versionLabel->setText(QString{ QObject::tr("v%1 (%2)") }.arg(RKB_VERSION_STRING).arg(RKB_GIT_COMMIT_HASH));
+    this->p_ui->versionLabel->setText(QString{ QObject::tr("v%1") }.arg(RKB_VERSION_STRING));
+
+    this->p_ui->legalLabel->setText(this->p_ui->legalLabel->text() + QString{ QObject::tr("  Build %1") }.arg(RKB_GIT_COMMIT_HASH));
 
 #if !defined(NXA_BETA_BUILD)
     this->p_ui->topWarningTape->setVisible(false);
