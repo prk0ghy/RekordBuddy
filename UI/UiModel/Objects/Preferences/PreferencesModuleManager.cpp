@@ -29,10 +29,6 @@
 
 namespace NxA::RekordBuddy {
 
-// -- Constants
-
-#define NXA_DID_MIGRATE_PREFERENCES_PREFERENCES_KEY                    "DidMigratePreferences"
-
 // -- Static Variables
 
 using PreferenceList = std::vector<std::unique_ptr<PreferencesCategoryBase>>;
@@ -57,38 +53,6 @@ PreferencesCategoryBase* PreferencesModuleManager::getModuleInterface(integer32 
     }
 
     return nullptr;
-}
-
-void PreferencesModuleManager::migrateUserPreferencesValuesIn(NotNull<NxA::UserPreferences*> userPreferences)
-{
-    auto maybeDidMigratePreferences = userPreferences->maybeBooleanForKey(String{ NXA_DID_MIGRATE_PREFERENCES_PREFERENCES_KEY });
-    if (maybeDidMigratePreferences.isValid() && *maybeDidMigratePreferences) {
-        return;
-    }
-
-#if defined(NXA_PLATFORM_MACOS)
-    if (!UserPreferences::existsOnVolume(Volume::musicFolderVolume())) {
-        // -- Preferences file doesn't exist, if there are preferences to migrate, import from NSUserPreferences
-        boolean hasPreferencesToMigrate = false;
-
-        for (auto&& module : preferenceModuleList) {
-            if (module->hasPreferencesToMigrate()) {
-                hasPreferencesToMigrate = true;
-                break;
-            }
-        }
-
-        if (hasPreferencesToMigrate && ConfirmationMessageBox::promptForConfirmOkCancel(QObject::tr("Attempt preference import from old version?"),
-                                                                                        QObject::tr("No preferences exist yet. Do you want to import from the older version installed on this system?"),
-                                                                                        QObject::tr("If you don't import, preferences will be set to their default values."))) {
-            for (auto&& prefModule : preferenceModuleList) {
-                prefModule->migratePreferenceValues();
-            }
-
-            userPreferences->setBooleanForKey(true, String{ NXA_DID_MIGRATE_PREFERENCES_PREFERENCES_KEY });
-        }
-    }
-#endif
 }
 
 void PreferencesModuleManager::saveUserPreferencesChanges()

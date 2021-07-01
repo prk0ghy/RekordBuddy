@@ -27,12 +27,6 @@
 using namespace NxA;
 using namespace RekordBuddy;
 
-// -- Constants
-
-#define NXA_OLD_READ_TRAKTOR_KEY_INSTEAD_OF_KEY_TEXT_PREFERENCES_KEY                       "UseTraktorKeyInsteadOfKeyText"
-#define NXA_OLD_IMPORT_EXPORT_TRAKTOR_COMMENTS2_FIELD_AS_GROUPING_PREFERENCES_KEY          "ImportExportComments2FieldAsGrouping"
-#define NXA_OLD_MERGE_GRID_MARKERS_AND_HOT_CUES_FOR_TRAKTOR_PREFERENCES_KEY                "MergeGridMarkersAndHotCuesForTraktor"
-
 // -- Class Methods
 
 void PreferencesCategoryTraktor::registerDefaultPreferenceValuesIn(NotNull<NxA::UserPreferences*> userPreferences)
@@ -102,32 +96,6 @@ void PreferencesCategoryTraktor::populatePreferencesPanel(QWidget* panel)
         QCheckBox::connect(this->p_preferencesPanelContents->checkBoxMergeGridMarkers, &QCheckBox::stateChanged,
                            [=](int newCheckState) {
                                this->p_handleMergeGridMarkersFlagChanged(newCheckState); });
-    }
-}
-
-boolean PreferencesCategoryTraktor::hasPreferencesToMigrate() const
-{
-    return this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_READ_TRAKTOR_KEY_INSTEAD_OF_KEY_TEXT_PREFERENCES_KEY }).isValid() ||
-           this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_MERGE_GRID_MARKERS_AND_HOT_CUES_FOR_TRAKTOR_PREFERENCES_KEY }).isValid() ||
-           this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_IMPORT_EXPORT_TRAKTOR_COMMENTS2_FIELD_AS_GROUPING_PREFERENCES_KEY }).isValid();
-}
-
-void PreferencesCategoryTraktor::migratePreferenceValues() const
-{
-    auto maybeTraktorKeyInsteadOfKeyText = this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_READ_TRAKTOR_KEY_INSTEAD_OF_KEY_TEXT_PREFERENCES_KEY });
-    if (maybeTraktorKeyInsteadOfKeyText.isValid()) {
-        this->p_userPreferences->setBooleanForKey(*maybeTraktorKeyInsteadOfKeyText,
-                                           String{ NXA_READ_TRAKTOR_KEY_INSTEAD_OF_KEY_TEXT_PREFERENCES_KEY });
-    }
-    auto maybeMergeGridMarkers = this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_MERGE_GRID_MARKERS_AND_HOT_CUES_FOR_TRAKTOR_PREFERENCES_KEY });
-    if (maybeMergeGridMarkers.isValid()) {
-        this->p_userPreferences->setBooleanForKey(*maybeMergeGridMarkers,
-                                           String{ NXA_MERGE_GRID_MARKERS_AND_HOT_CUES_FOR_TRAKTOR_PREFERENCES_KEY });
-    }
-    auto maybeImportExportComments2 = this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_IMPORT_EXPORT_TRAKTOR_COMMENTS2_FIELD_AS_GROUPING_PREFERENCES_KEY });
-    if (maybeImportExportComments2.isValid()) {
-        this->p_userPreferences->setBooleanForKey(*maybeImportExportComments2,
-                                           String{ NXA_IMPORT_EXPORT_TRAKTOR_COMMENTS2_FIELD_AS_GROUPING_PREFERENCES_KEY });
     }
 }
 

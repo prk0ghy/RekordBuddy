@@ -51,8 +51,6 @@ public:
 
     // -- Instance Methods
     NxA::String CategoryName() const override;
-    void migratePreferenceValues() const override;
-    boolean hasPreferencesToMigrate() const override;
     void populatePreferencesPanel(QWidget*) override;
 
     boolean appClashesWithAppNamed(const String&) override;

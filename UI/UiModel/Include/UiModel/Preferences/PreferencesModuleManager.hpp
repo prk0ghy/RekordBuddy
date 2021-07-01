@@ -26,7 +26,6 @@ namespace NxA::RekordBuddy::PreferencesModuleManager {
 
 // -- Public Functions
 void loadPreferencesModule(std::unique_ptr<PreferencesCategoryBase>);
-void migrateUserPreferencesValuesIn(NotNull<NxA::UserPreferences*>);
 void saveUserPreferencesChanges();
 count numberAvailableModules();
 PreferencesCategoryBase* getModuleInterface(integer32);

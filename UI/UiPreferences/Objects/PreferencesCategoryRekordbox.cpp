@@ -27,12 +27,6 @@
 using namespace NxA;
 using namespace RekordBuddy;
 
-// -- Constants
-
-#define NXA_OLD_NUMBER_OF_REKORDBOX_HOTCUES_PREFERENCES_KEY                            "NxAUserPreferencesNumberOfRekordboxHotcues"
-#define NXA_OLD_NUMBER_OF_REKORDBOX_GRID_MARKERS_BEFORE_IGNORING_THEM_PREFERENCES_KEY  "NxAUserPreferencesNumberOfRekordboxGridMarkersBeforeIgnoringThem"
-#define NXA_OLD_DUPLICATE_HOTCUES_AS_MEMORY_CUES_PREFERENCES_KEY                       "NxAUserPreferencesDuplicateSeratoHotCuesAsMemoryCues"
-
 // -- Class Methods
 
 void PreferencesCategoryRekordbox::registerDefaultPreferenceValuesIn(NotNull<NxA::UserPreferences*> userPreferences)
@@ -133,32 +127,6 @@ void PreferencesCategoryRekordbox::populatePreferencesPanel(QWidget* panel)
         QCheckBox::connect(this->p_preferencesPanelContents->allowVideoTracksInPlaylists, &QCheckBox::stateChanged,
                            [=](int newCheckState) {
                                this->p_handleAllowVideoTracksInPlaylistsFlagChanged(newCheckState); });
-    }
-}
-
-boolean PreferencesCategoryRekordbox::hasPreferencesToMigrate() const
-{
-    return this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_NUMBER_OF_REKORDBOX_HOTCUES_PREFERENCES_KEY }).isValid() ||
-           this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_NUMBER_OF_REKORDBOX_GRID_MARKERS_BEFORE_IGNORING_THEM_PREFERENCES_KEY }).isValid() ||
-           this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_DUPLICATE_HOTCUES_AS_MEMORY_CUES_PREFERENCES_KEY });
-}
-
-void PreferencesCategoryRekordbox::migratePreferenceValues() const
-{
-    auto maybeNumberOfRekordboxHotcues = this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_NUMBER_OF_REKORDBOX_HOTCUES_PREFERENCES_KEY });
-    if (maybeNumberOfRekordboxHotcues.isValid()) {
-        this->p_userPreferences->setIntegerForKey(*maybeNumberOfRekordboxHotcues,
-                                                  String{ NXA_MAXIMUM_NUMBER_OF_HOTCUES_TO_EXPORT_FOR_REKORDBOX_PREFERENCES_KEY });
-    }
-    auto maybeNumberOfRekordboxGridMarkersBeforeIgnoringThem = this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_NUMBER_OF_REKORDBOX_GRID_MARKERS_BEFORE_IGNORING_THEM_PREFERENCES_KEY });
-    if (maybeNumberOfRekordboxGridMarkersBeforeIgnoringThem.isValid()) {
-        this->p_userPreferences->setIntegerForKey(*maybeNumberOfRekordboxGridMarkersBeforeIgnoringThem,
-                                           String{ NXA_NUMBER_OF_REKORDBOX_GRID_MARKERS_BEFORE_IGNORING_THEM_PREFERENCES_KEY });
-    }
-    auto maybeDuplicateHotCuesAsMemoryCues = this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_DUPLICATE_HOTCUES_AS_MEMORY_CUES_PREFERENCES_KEY });
-    if (maybeDuplicateHotCuesAsMemoryCues.isValid()) {
-        this->p_userPreferences->setBooleanForKey(*maybeDuplicateHotCuesAsMemoryCues,
-                                           String{ NXA_DUPLICATE_REKORDBOX_HOTCUES_AS_MEMORY_CUES_PREFERENCES_KEY });
     }
 }
 

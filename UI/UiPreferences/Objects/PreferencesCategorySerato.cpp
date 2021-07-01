@@ -27,10 +27,6 @@
 using namespace NxA;
 using namespace RekordBuddy;
 
-// -- Constants
-
-#define NXA_OLD_CONVERT_MEMORY_CUES_TO_SERATO_HOT_CUES_ON_EXPORT_PREFERENCES_KEY           "ConvertMemoryCuesToHotCuesOnExport"
-
 // -- Class Methods
 
 void PreferencesCategorySerato::registerDefaultPreferenceValuesIn(NotNull<NxA::UserPreferences*> userPreferences)
@@ -84,19 +80,6 @@ void PreferencesCategorySerato::populatePreferencesPanel(QWidget* panel)
         QCheckBox::connect(this->p_preferencesPanelContents->checkBoxIgnorePlaylists, &QCheckBox::stateChanged,
                            [=](int newCheckState) {
                                this->p_handleIgnorePlaylistsChanged(newCheckState); });
-    }
-}
-
-boolean PreferencesCategorySerato::hasPreferencesToMigrate() const
-{
-    return this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_CONVERT_MEMORY_CUES_TO_SERATO_HOT_CUES_ON_EXPORT_PREFERENCES_KEY }).isValid();
-}
-
-void PreferencesCategorySerato::migratePreferenceValues() const
-{
-    auto maybeMemoryCuesFlag = this->p_userPreferences->maybeOSBooleanForKey(String{ NXA_OLD_CONVERT_MEMORY_CUES_TO_SERATO_HOT_CUES_ON_EXPORT_PREFERENCES_KEY });
-    if (maybeMemoryCuesFlag.isValid()) {
-        this->p_userPreferences->setBooleanForKey(*maybeMemoryCuesFlag, String{ NXA_CONVERT_MEMORY_CUES_TO_SERATO_HOT_CUES_ON_EXPORT_PREFERENCES_KEY });
     }
 }
 

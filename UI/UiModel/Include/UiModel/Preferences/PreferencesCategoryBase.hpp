@@ -43,8 +43,6 @@ public:
 
     // -- Instance Methods
     virtual NxA::String CategoryName() const = 0;
-    virtual void migratePreferenceValues() const = 0;
-    virtual boolean hasPreferencesToMigrate() const = 0;
     virtual void populatePreferencesPanel(QWidget* panel) = 0;
     virtual void eventWindowOpened()
     {

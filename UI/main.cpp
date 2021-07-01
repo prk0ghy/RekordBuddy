@@ -74,7 +74,6 @@ static void loadPreferences()
     PreferencesCategoryRekordbox::registerDefaultPreferenceValuesIn(userPreferences);
     PreferencesCategorySerato::registerDefaultPreferenceValuesIn(userPreferences);
     PreferencesCategoryTraktor::registerDefaultPreferenceValuesIn(userPreferences);
-    PreferencesModuleManager::migrateUserPreferencesValuesIn(userPreferences);
 
     // -- Then load the user preferences panels using those preferences.
     PreferencesModuleManager::loadPreferencesModule(std::make_unique<PreferencesCategoryGeneral>(userPreferences));

@@ -30,13 +30,6 @@
 using namespace NxA;
 using namespace RekordBuddy;
 
-// -- Constants and Types
-
-#define NXA_OLD_MUSICAL_NOTATION_PREFERENCES_KEY            "NxAUserPreferencesMusicalNotation"
-#define NXA_OLD_ARTISTS_SEPARATOR_PREFERENCES_KEY           "NxAUserPreferencesArtistsSeparator"
-#define NXA_OLD_GENRES_SEPARATOR_PREFERENCES_KEY            "NxAUserPreferencesGenresSeparator"
-#define NXA_OLD_MUSICAL_KEYS_SEPARATOR_PREFERENCES_KEY      "NxAUserPreferencesKeysSeparator"
-
 // -- Static Variables
 
 static Array<String> p_availableSeparators = {
@@ -201,45 +194,6 @@ void PreferencesCategoryGeneral::populatePreferencesPanel(QWidget* panel)
 void PreferencesCategoryGeneral::eventWindowOpened()
 {
 
-}
-
-boolean PreferencesCategoryGeneral::hasPreferencesToMigrate() const
-{
-    return this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_MUSICAL_NOTATION_PREFERENCES_KEY }).isValid() ||
-           this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_ARTISTS_SEPARATOR_PREFERENCES_KEY }).isValid() ||
-           this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_GENRES_SEPARATOR_PREFERENCES_KEY }).isValid() ||
-           this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_MUSICAL_KEYS_SEPARATOR_PREFERENCES_KEY }).isValid();
-}
-
-void PreferencesCategoryGeneral::migratePreferenceValues() const
-{
-    static Array<String> oldAvailableSeparators = {
-            ","_String,
-            ", "_String,
-            "/"_String,
-            " / "_String,
-            " "_String
-    };
-
-    auto maybeValue = this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_MUSICAL_NOTATION_PREFERENCES_KEY });
-    if (maybeValue.isValid()) {
-        this->p_userPreferences->setIntegerForKey(*maybeValue, String{ NXA_MUSICAL_NOTATION_PREFERENCES_KEY });
-    }
-    maybeValue = this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_ARTISTS_SEPARATOR_PREFERENCES_KEY });
-    if (maybeValue.isValid()) {
-        this->p_userPreferences->setStringForKey(oldAvailableSeparators[*maybeValue],
-                                                 String{ NXA_ARTISTS_SEPARATOR_PREFERENCES_KEY });
-    }
-    maybeValue = this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_GENRES_SEPARATOR_PREFERENCES_KEY });
-    if (maybeValue.isValid()) {
-        this->p_userPreferences->setStringForKey(oldAvailableSeparators[*maybeValue],
-                                                 String{ NXA_GENRES_SEPARATOR_PREFERENCES_KEY });
-    }
-    maybeValue = this->p_userPreferences->maybeOSIntegerForKey(String{ NXA_OLD_MUSICAL_KEYS_SEPARATOR_PREFERENCES_KEY });
-    if (maybeValue.isValid()) {
-        this->p_userPreferences->setStringForKey(oldAvailableSeparators[*maybeValue],
-                                                 String{ NXA_MUSICAL_KEYS_SEPARATOR_PREFERENCES_KEY });
-    }
 }
 
 boolean PreferencesCategoryGeneral::appClashesWithAppNamed(const String& name)
