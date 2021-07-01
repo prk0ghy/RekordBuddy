@@ -120,9 +120,6 @@ void PreferencesCategoryGeneral::populatePreferencesPanel(QWidget* panel)
     this->p_preferencesPanelContents = new Ui::PreferencesGeneral{};
     this->p_preferencesPanelContents->setupUi(panel);
 
-    String licenseKey;
-    this->p_preferencesPanelContents->lineEditLicenseKey->setText(QObject::tr("FREE LICENSE"));
-
     void (QComboBox::*signalPointer)(int) = &QComboBox::currentIndexChanged;
     {
         this->p_preferencesPanelContents->comboBoxKeyNotation->addItem(QObject::tr("Musical"), int(Common::MusicalKey::Notation::Standard));
@@ -203,7 +200,7 @@ void PreferencesCategoryGeneral::populatePreferencesPanel(QWidget* panel)
 
 void PreferencesCategoryGeneral::eventWindowOpened()
 {
-    this->p_preferencesPanelContents->lineEditLicenseKey->setText(QObject::tr("FREE LICENSE"));
+
 }
 
 boolean PreferencesCategoryGeneral::hasPreferencesToMigrate() const
