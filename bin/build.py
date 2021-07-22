@@ -177,7 +177,7 @@ def check_no_existing_git_tag(context):
     """Make sure we don't already have a build tagged like this."""
     result = run_shell(f'git show {context.git_tag_for_build} 2>&1 > /dev/null | grep "fatal: ambiguous argument"')
     if not result[0]:
-        die(f'Can\'t get branch name ({result[1]}).')
+        die(f'Can\'t check for existing git tag ({result[1]}).')
 
     if result[1] == '':
         die(f'Found another commit tagged \'{context.git_tag_for_build}\'')
