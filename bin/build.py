@@ -175,7 +175,7 @@ def get_version_number_from_file_in_directory(version_name, directory):
 
 def check_no_existing_git_tag(context):
     """Make sure we don't already have a build tagged like this."""
-    result = run_shell(f'git show {context.git_tag_for_build} 2>&1 > /dev/null | grep "fatal: ambiguous argument"')
+    result = run_shell(f'git show "{context.git_tag_for_build}" 2>&1 > /dev/null | grep "fatal: ambiguous argument"')
     if not result[0]:
         die(f'Can\'t check for existing git tag ({result[1]}).')
 
@@ -307,11 +307,10 @@ def setup_context(context):
     if revision_version_number != '0':
         build_version_number = f'{build_version_number}.{revision_version_number}'
 
-    git_tag_for_build = f'v{build_version_number}'
-
     build_number = get_version_number_from_file_in_directory('build', version_files_directory)
     symbols_version_number = f'{major_version_number}.{minor_version_number}.{revision_version_number}.{build_number}.{commit_hash_for_symbols}'
-    build_version_number = f'{build_version_number}({build_number}) ({commit_hash})'
+    build_version_number = f'{build_version_number}({build_number})'
+    git_tag_for_build = f'v{build_version_number}'
 
     if context.codesign_identity != '':
         if context.provider_short_name == '' or context.appleid_email == '':
